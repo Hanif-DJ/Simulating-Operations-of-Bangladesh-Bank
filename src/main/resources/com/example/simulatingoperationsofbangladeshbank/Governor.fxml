@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="620.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulatingoperationsofbangladeshbank.GovernorController">
+    <children>
+        <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bangladesh Bank - Governor ">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Text>
+        <Button layoutX="664.0" layoutY="9.0" onAction="#signOutButtonOA" prefHeight="34.0" prefWidth="88.0" text="Sign Out" />
+
+        <TabPane layoutX="10.0" layoutY="48.0" prefHeight="560.0" prefWidth="760.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <!-- GOAL 1: Policy Proposals Awaiting Governor Decision -->
+                <Tab text="1. Policy">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="42.0" layoutY="51.0" text="Proposal ID:" />
+                                <TextField fx:id="ProposalIdTextField" layoutX="130.0" layoutY="33.0" prefWidth="170.0" />
+                                <Text layoutX="44.0" layoutY="101.0" text="Policy Title:" />
+                                <TextField fx:id="PolicyTitleTextField" layoutX="130.0" layoutY="84.0" prefWidth="170.0" />
+                                <Text layoutX="38.0" layoutY="152.0" text="Prepared By:" />
+                                <TextField fx:id="PreparedByTextField" layoutX="130.0" layoutY="135.0" prefWidth="170.0" />
+
+                                <Text layoutX="388.0" layoutY="50.0" text="Decision:" />
+                                <ComboBox fx:id="selectDecisionComboBox" layoutX="460.0" layoutY="34.0" prefWidth="170.0" promptText="Select Decision" />
+                                <Text layoutX="359.0" layoutY="132.0" text="Decision Note:" />
+                                <TextField fx:id="DecisonNoteTextField" layoutX="460.0" layoutY="96.0" prefHeight="62.0" prefWidth="260.0" />
+
+                                <Button layoutX="260.0" layoutY="200.0" onAction="#LoadQueueOA" text="Load Queue" />
+                                <Button layoutX="427.0" layoutY="200.0" onAction="#ConfirmDecisionOA" text="Confirm Decision" />
+
+                                <TableView fx:id="ProposalTableView" layoutX="14.0" layoutY="249.0" prefHeight="266.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="ProposalIdCol" prefWidth="110.0" text="Proposal ID" />
+                                        <TableColumn fx:id="TitleCol" prefWidth="170.0" text="Policy Title" />
+                                        <TableColumn fx:id="PreparedByCol" prefWidth="120.0" text="Prepared By" />
+                                        <TableColumn fx:id="DecisionCol" prefWidth="120.0" text="Decision" />
+                                        <TableColumn fx:id="DecisionNoteCol" prefWidth="210.0" text="Decision Note" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 2: Financial Stability Overview -->
+                <Tab text="2. Stability">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="52.0" layoutY="38.0" text="Indicator ID:" />
+                                <TextField fx:id="IndicatorIdTextField" layoutX="140.0" layoutY="21.0" prefWidth="160.0" />
+                                <Text layoutX="24.0" layoutY="87.0" text="Reporting Period:" />
+                                <ComboBox fx:id="ReportingPeriodComboBox" layoutX="140.0" layoutY="70.0" prefWidth="160.0" promptText="Select Period" />
+                                <Text layoutX="51.0" layoutY="136.0" text="Department:" />
+                                <ComboBox fx:id="DepartmentComboBox" layoutX="140.0" layoutY="119.0" prefWidth="160.0" promptText="Select Department" />
+
+                                <Text layoutX="397.0" layoutY="45.0" text="Risk Flag:" />
+                                <ComboBox fx:id="RiskFlagComboBox" layoutX="460.0" layoutY="28.0" prefWidth="160.0" promptText="Select Risk Flag" />
+                                <Text layoutX="347.0" layoutY="128.0" text="Governor Remarks:" />
+                                <TextField fx:id="GovernorRemarksTextField" layoutX="460.0" layoutY="85.0" prefHeight="67.0" prefWidth="260.0" />
+
+                                <Button layoutX="253.0" layoutY="177.0" onAction="#LoadOverviewButtonOA" text="Load Overview" />
+                                <Button layoutX="409.0" layoutY="177.0" onAction="#ConfirmReviewButtonOA" text="Save &amp; Confirm Review" />
+                                <Label fx:id="StatusSummaryLabel" layoutX="210.0" layoutY="214.0" prefHeight="26.0" prefWidth="339.0" text="Status: Pending Review" textAlignment="CENTER" />
+
+                                <TableView fx:id="g2StabilityTableView" layoutX="14.0" layoutY="256.0" prefHeight="259.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="IndicatorIdCol" prefWidth="110.0" text="Indicator ID" />
+                                        <TableColumn fx:id="ReportingPeriodCol" prefWidth="120.0" text="Reporting Period" />
+                                        <TableColumn fx:id="DepartmentCol" prefWidth="150.0" text="Department" />
+                                        <TableColumn fx:id="RiskFlagCol" prefWidth="110.0" text="Risk Flag" />
+                                        <TableColumn fx:id="GovernorRemarksCol" prefWidth="240.0" text="Governor Remarks" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 3: Major Decisions Awaiting Authorization -->
+                <Tab text="3. Decisions">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="57.0" layoutY="37.0" text="Request ID:" />
+                                <TextField fx:id="RequestIdTextField" layoutX="140.0" layoutY="21.0" prefWidth="170.0" />
+                                <Text layoutX="54.0" layoutY="74.0" text="Department:" />
+                                <TextField fx:id="DeptTextField" layoutX="140.0" layoutY="57.0" prefWidth="170.0" />
+                                <Text layoutX="30.0" layoutY="122.0" text="Request Summary:" />
+                                <TextField fx:id="RequestSummaryTextField" layoutX="140.0" layoutY="105.0" prefWidth="170.0" />
+
+                                <Text layoutX="392.0" layoutY="38.0" text="Decision:" />
+                                <ComboBox fx:id="DecisionComboBox" layoutX="465.0" layoutY="21.0" prefWidth="170.0" promptText="Select Decision" />
+                                <Text layoutX="386.0" layoutY="95.0" text="Conditions:" />
+                                <TextField fx:id="ConditionsTextField" layoutX="465.0" layoutY="73.0" prefHeight="63.0" prefWidth="226.0" />
+
+                                <Button layoutX="313.0" layoutY="146.0" onAction="#ConfirmAuthButtonOA" text="Confirm Authorization" />
+
+                                <TableView fx:id="MajorDecisionTableView" layoutX="14.0" layoutY="185.0" prefHeight="330.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="RequestIdCol" prefWidth="100.0" text="Request ID" />
+                                        <TableColumn fx:id="DeptCol" prefWidth="130.0" text="Department" />
+                                        <TableColumn fx:id="ReqSummaryCol" prefWidth="190.0" text="Request Summary" />
+                                        <TableColumn fx:id="g3DecisionCol" prefWidth="110.0" text="Decision" />
+                                        <TableColumn fx:id="ConditionsCol" prefWidth="200.0" text="Conditions " />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 4: Consolidated Institutional Reports -->
+                <Tab text="4. Reports">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="62.0" layoutY="46.0" text="Report ID:" />
+                                <TextField fx:id="ReportIdTextField" layoutX="140.0" layoutY="28.0" prefWidth="165.0" />
+                                <Text layoutX="23.0" layoutY="96.0" text="Reporting Period:" />
+                                <ComboBox fx:id="g4PeriodComboBox" layoutX="140.0" layoutY="79.0" prefWidth="165.0" promptText="Select Period" />
+                                <Text layoutX="29.0" layoutY="143.0" text="Report Version:" />
+                                <TextField fx:id="g4ReportVersionTextField" layoutX="140.0" layoutY="126.0" prefWidth="165.0" />
+
+                                <Text layoutX="367.0" layoutY="58.0" text="Review Status:" />
+                                <ComboBox fx:id="ReviewStatusComboBox" layoutX="459.0" layoutY="41.0" prefWidth="170.0" promptText="Select Status" />
+                                <Text layoutX="348.0" layoutY="134.0" text="Governor Remarks:" />
+                                <TextField fx:id="g4RemarksTextField" layoutX="460.0" layoutY="107.0" prefHeight="45.0" prefWidth="260.0" />
+
+                                <Button layoutX="168.0" layoutY="188.0" onAction="#LoadReportButtonOA" text="Load Report" />
+                                <Button layoutX="323.0" layoutY="188.0" onAction="#SaveReviewButtonOA" text="Save Review" />
+                                <Button layoutX="486.0" layoutY="188.0" onAction="#g4RequestCorrectionButtonOA" text="Request Correction" />
+
+                                <TableView fx:id="ReportTableView" layoutX="14.0" layoutY="236.0" prefHeight="279.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="ReportIdCol" prefWidth="110.0" text="Report ID" />
+                                        <TableColumn fx:id="g4PeriodCol" prefWidth="110.0" text="Period" />
+                                        <TableColumn fx:id="ReportVersionCol" prefWidth="118.39996337890625" text="Report Version" />
+                                        <TableColumn fx:id="ReviewStatusCol" prefWidth="176.80001831054688" text="Review Status" />
+                                        <TableColumn fx:id="g4GovernorRemarksCol" prefWidth="216.79998779296875" text="Governor Remarks" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 5: Directives Awaiting Governor Approval -->
+                <Tab text="5. Directives">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="49.0" layoutY="38.0" text="Directive ID:" />
+                                <TextField fx:id="DirectiveIdTextField" layoutX="130.0" layoutY="21.0" prefWidth="170.0" />
+                                <Text layoutX="38.0" layoutY="83.0" text="Directive Title:" />
+                                <TextField fx:id="TitleTextField" layoutX="130.0" layoutY="66.0" prefWidth="170.0" />
+                                <Text layoutX="37.0" layoutY="126.0" text="Effective Date:" />
+                                <DatePicker fx:id="EffectiveDatePicker" layoutX="130.0" layoutY="109.0" prefWidth="170.0" />
+
+                                <Text layoutX="368.0" layoutY="38.0" text="Decision:" />
+                                <ComboBox fx:id="g5DecisionComboBox" layoutX="435.0" layoutY="21.0" prefWidth="170.0" promptText="Select Decision" />
+                                <Text layoutX="368.0" layoutY="90.0" text="Remarks:" />
+                                <TextField fx:id="g5RemarksTextField" layoutX="435.0" layoutY="80.0" prefHeight="57.0" prefWidth="286.0" />
+
+                                <Button layoutX="313.0" layoutY="159.0" onAction="#ConfirmDirectiveButtonOA" text="Confirm Directive Decision" />
+
+                                <TableView fx:id="DirectiveTableView" layoutX="14.0" layoutY="200.0" prefHeight="315.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="DirectiveIdCol" prefWidth="110.0" text="Directive ID" />
+                                        <TableColumn fx:id="DirectiveTitleCol" prefWidth="190.0" text="Directive Title" />
+                                        <TableColumn fx:id="EffectiveDateCol" prefWidth="120.0" text="Effective Date" />
+                                        <TableColumn fx:id="g5DecisionCol" prefWidth="110.0" text="Decision" />
+                                        <TableColumn fx:id="g5RemarksCol" prefWidth="200.0" text="Remarks" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 6: Strategic Department Performance -->
+                <Tab text="6. Performance">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="53.0" layoutY="37.0" text="Department:" />
+                                <ComboBox fx:id="DeptComboBox" layoutX="140.0" layoutY="21.0" prefWidth="165.0" promptText="Select Department" />
+                                <Text layoutX="27.0" layoutY="87.0" text="Reporting Period:" />
+                                <ComboBox fx:id="g6PeriodComboBox" layoutX="140.0" layoutY="71.0" prefWidth="165.0" promptText="Select Period" />
+                                <Text layoutX="30.0" layoutY="137.0" text="Strategic Target:" />
+                                <TextField fx:id="StrategicTargetTextField" layoutX="140.0" layoutY="120.0" prefWidth="165.0" />
+
+                                <Text layoutX="370.0" layoutY="38.0" text="Actual Result:" />
+                                <TextField fx:id="ActualTextField" layoutX="465.0" layoutY="21.0" prefWidth="170.0" />
+                                <Text layoutX="380.0" layoutY="74.0" text="Risk Rating:" />
+                                <ComboBox fx:id="RiskRatingComboBox" layoutX="465.0" layoutY="62.0" prefHeight="26.0" prefWidth="170.0" promptText="Select Risk Rating" />
+                                <Text layoutX="340.0" layoutY="130.0" text="Strategic Direction:" />
+                                <TextField fx:id="StrategicDirectionTextField" layoutX="465.0" layoutY="106.0" prefHeight="38.0" prefWidth="255.0" />
+
+                                <Button layoutX="247.0" layoutY="170.0" onAction="#LoadKpiButtonOA" prefHeight="26.0" prefWidth="82.0" text="Load KPIs" />
+                                <Button layoutX="422.0" layoutY="170.0" onAction="#SaveDirectionButtonOA" prefHeight="26.0" prefWidth="158.0" text="Save Direction &amp; Confirm" />
+
+                                <TableView fx:id="PerformanceTableView" layoutX="14.0" layoutY="218.0" prefHeight="297.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="g6DeptCol" prefWidth="130.0" text="Department" />
+                                        <TableColumn fx:id="g6PeriodCol" prefWidth="95.0" text="Period" />
+                                        <TableColumn fx:id="g6TargetCol" prefWidth="125.0" text="Strategic Target" />
+                                        <TableColumn fx:id="g6ActualCol" prefWidth="125.0" text="Actual Result" />
+                                        <TableColumn fx:id="g6RiskRatingCol" prefWidth="100.0" text="Risk Rating" />
+                                        <TableColumn fx:id="g6DirectionCol" prefWidth="155.0" text="Direction" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 7: Critical Financial-Sector Alerts -->
+                <Tab text="7. Alerts">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="41.0" layoutY="46.0" text="Incident ID:" />
+                                <TextField fx:id="g7IncidentIdTextField" layoutX="130.0" layoutY="29.0" prefWidth="165.0" />
+                                <Text layoutX="38.0" layoutY="87.0" text="Source Dept:" />
+                                <ComboBox fx:id="g7SourceDeptComboBox" layoutX="130.0" layoutY="70.0" prefWidth="165.0" promptText="Select Department" />
+                                <Text layoutX="62.0" layoutY="130.0" text="Severity:" />
+                                <ComboBox fx:id="g7SeverityComboBox" layoutX="130.0" layoutY="113.0" prefWidth="165.0" promptText="Select Severity" />
+
+                                <Text layoutX="410.0" layoutY="46.0" text="Status:" />
+                                <ComboBox fx:id="g7StatusComboBox" layoutX="464.0" layoutY="29.0" prefWidth="165.0" promptText="Select Status" />
+                                <Text layoutX="336.0" layoutY="117.0" text="Emergency Direction:" />
+                                <TextField fx:id="g7DirectionTextField" layoutX="464.0" layoutY="80.0" prefHeight="58.0" prefWidth="235.0" />
+
+                                <Button layoutX="308.0" layoutY="171.0" onAction="#IssueEmergencyDirectionButton" text="Issue Emergency Direction" />
+
+                                <TableView fx:id="g7AlertTableView" layoutX="14.0" layoutY="225.0" prefHeight="290.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="g7IncidentIdCol" prefWidth="115.20000648498535" text="Incident ID" />
+                                        <TableColumn fx:id="g7SourceDeptCol" prefWidth="139.20001220703125" text="Source Dept" />
+                                        <TableColumn fx:id="g7SeverityCol" prefWidth="131.199951171875" text="Severity" />
+                                        <TableColumn fx:id="g7StatusCol" prefWidth="140.00003051757812" text="Status" />
+                                        <TableColumn fx:id="g7DirectionCol" prefWidth="207.199951171875" text="Emergency Direction" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 8: Strategic Operational Plans -->
+                <Tab text="8. Plans">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="89.0" layoutY="38.0" text="Plan ID:" />
+                                <TextField fx:id="g8PlanIdTextField" layoutX="145.0" layoutY="22.0" prefWidth="160.0" />
+                                <Text layoutX="62.0" layoutY="87.0" text="Plan Version:" />
+                                <TextField fx:id="g8VersionTextField" layoutX="145.0" layoutY="69.0" prefWidth="160.0" />
+                                <Text layoutX="24.0" layoutY="139.0" text="Strategic Objectives:" />
+                                <TextField fx:id="g8ObjectivesTextField" layoutX="145.0" layoutY="122.0" prefWidth="160.0" />
+
+                                <Text layoutX="370.0" layoutY="51.0" text="Decision:" />
+                                <ComboBox fx:id="g8DecisionComboBox" layoutX="435.0" layoutY="34.0" prefWidth="165.0" promptText="Select Decision" />
+                                <Text layoutX="354.0" layoutY="125.0" text="Instructions:" />
+                                <TextField fx:id="g8RemarksTextField" layoutX="435.0" layoutY="100.0" prefHeight="59.0" prefWidth="286.0" />
+
+                                <Button layoutX="297.0" layoutY="180.0" onAction="#ConfirmPlanButtonOA" prefHeight="37.0" prefWidth="146.0" text="Confirm Plan Decision" />
+
+                                <TableView fx:id="g8PlanTableView" layoutX="14.0" layoutY="240.0" prefHeight="275.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="g8PlanIdCol" prefWidth="100.0" text="Plan ID" />
+                                        <TableColumn fx:id="g8VersionCol" prefWidth="80.0" text="Version" />
+                                        <TableColumn fx:id="g8ObjectivesCol" prefWidth="220.0" text="Strategic Objectives" />
+                                        <TableColumn fx:id="g8DecisionCol" prefWidth="110.0" text="Decision" />
+                                        <TableColumn fx:id="g8RemarksCol" prefWidth="220.0" text="Instructions" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>

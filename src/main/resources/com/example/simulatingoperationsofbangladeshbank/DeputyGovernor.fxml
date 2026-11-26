@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="620.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulatingoperationsofbangladeshbank.DeputyGovernorController">
+    <children>
+        <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bangladesh Bank - Deputy Governor">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Text>
+        <Button layoutX="664.0" layoutY="9.0" onAction="#signOutButtonOA" prefHeight="34.0" prefWidth="88.0" text="Sign Out" />
+
+        <TabPane layoutX="10.0" layoutY="48.0" prefHeight="560.0" prefWidth="760.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <!-- GOAL 1: Assigned Department Reports -->
+                <Tab text="1. Reports">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="71.0" layoutY="49.0" text="Report ID:" />
+                                <TextField fx:id="ReportIdTextField" layoutX="140.0" layoutY="32.0" prefWidth="165.0" />
+                                <Text layoutX="58.0" layoutY="102.0" text="Department:" />
+                                <ComboBox fx:id="ReportDeptComboBox" layoutX="140.0" layoutY="84.0" prefWidth="165.0" promptText="Select Department" />
+                                <Text layoutX="34.0" layoutY="155.0" text="Reporting Period:" />
+                                <ComboBox fx:id="ReportingPeriodComboBox" layoutX="140.0" layoutY="138.0" prefWidth="165.0" promptText="Select Period" />
+
+                                <Text layoutX="374.0" layoutY="49.0" text="Review Status:" />
+                                <ComboBox fx:id="ReportStatusComboBox" layoutX="465.0" layoutY="32.0" prefWidth="170.0" promptText="Select Status" />
+                                <Text layoutX="400.0" layoutY="123.0" text="Remarks:" />
+                                <TextField fx:id="ReportRemarksTextField" layoutX="465.0" layoutY="90.0" prefHeight="80.0" prefWidth="235.0" />
+
+                                <Button layoutX="227.0" layoutY="191.0" onAction="#LoadReportsButtonOA" prefHeight="34.0" prefWidth="104.0" text="Load Reports" />
+                                <Button layoutX="394.0" layoutY="191.0" onAction="#SubmitReviewButtonOA" prefHeight="34.0" prefWidth="100.0" text="Submit Review" />
+
+                                <TableView fx:id="ReportTableView" layoutX="14.0" layoutY="250.0" prefHeight="266.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="ReportIdCol" prefWidth="105.0" text="Report ID" />
+                                        <TableColumn fx:id="ReportDeptCol" prefWidth="150.0" text="Department" />
+                                        <TableColumn fx:id="ReportingPeriodCol" prefWidth="115.0" text="Reporting Period" />
+                                        <TableColumn fx:id="ReviewStatusCol" prefWidth="168.80007934570312" text="Review Status" />
+                                        <TableColumn fx:id="RemarksCol" prefWidth="192.0" text="Remarks " />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 2: Assigned Department Supervision -->
+                <Tab text="2. Supervision">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="47.0" layoutY="47.0" text="Instruction ID:" />
+                                <TextField fx:id="InstructionIdTextField" layoutX="140.0" layoutY="30.0" prefWidth="165.0" />
+                                <Text layoutX="54.0" layoutY="99.0" text="Department:" />
+                                <ComboBox fx:id="SupDeptComboBox" layoutX="140.0" layoutY="82.0" prefWidth="165.0" promptText="Select Department" />
+                                <Text layoutX="52.0" layoutY="155.0" text="Priority Level:" />
+                                <ComboBox fx:id="PriorityComboBox" layoutX="140.0" layoutY="138.0" prefWidth="165.0" promptText="Select Priority" />
+
+                                <Text layoutX="392.0" layoutY="50.0" text="Due Date:" />
+                                <DatePicker fx:id="DueDatePicker" layoutX="459.0" layoutY="33.0" prefWidth="170.0" />
+                                <Text layoutX="351.0" layoutY="122.0" text="Supervisory Note:" />
+                                <TextField fx:id="InstructionTextField" layoutX="459.0" layoutY="85.0" prefHeight="74.0" prefWidth="255.0" />
+
+                                <Button layoutX="293.0" layoutY="189.0" onAction="#IssueInstructionButtonOA" text="Save &amp; Issue Instruction" />
+
+                                <TableView fx:id="SupervisionTableView" layoutX="14.0" layoutY="233.0" prefHeight="283.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="InstructionIdCol" prefWidth="110.0" text="Instruction ID" />
+                                        <TableColumn fx:id="SupDeptCol" prefWidth="150.0" text="Department" />
+                                        <TableColumn fx:id="PrioritylevelCol" prefWidth="125.59991455078125" text="Priority Level" />
+                                        <TableColumn fx:id="SupDueDateCol" prefWidth="122.40011596679688" text="Due Date" />
+                                        <TableColumn fx:id="SupervisoryNoteCol" prefWidth="224.00006103515625" text="Supervisory Note" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 3: Monetary Policy Implementation Review -->
+                <Tab text="3. Policy">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="31.0" layoutY="42.0" text="Policy Decision ID:" />
+                                <TextField fx:id="PolicyIdTextField" layoutX="145.0" layoutY="25.0" prefWidth="165.0" />
+                                <Text layoutX="51.0" layoutY="95.0" text="Review Period:" />
+                                <ComboBox fx:id="g3PeriodComboBox" layoutX="145.0" layoutY="78.0" prefWidth="165.0" promptText="Select Period" />
+                                <Text layoutX="65.0" layoutY="154.0" text="Impl. Status:" />
+                                <ComboBox fx:id="g3StatusComboBox" layoutX="145.0" layoutY="137.0" prefWidth="165.0" promptText="Select Status" />
+
+                                <Text layoutX="366.0" layoutY="42.0" text="Deviation Note:" />
+                                <TextField fx:id="DeviationTextField" layoutX="465.0" layoutY="25.0" prefHeight="34.0" prefWidth="255.0" />
+                                <Text layoutX="343.0" layoutY="108.0" text="Evaluation Remarks:" />
+                                <TextField fx:id="EvaluationRemarksTextField" layoutX="465.0" layoutY="86.0" prefHeight="73.0" prefWidth="255.0" />
+
+                                <Button layoutX="228.0" layoutY="197.0" onAction="#LoadDecisionButtonOA" text="Load Decisions" />
+                                <Button layoutX="424.0" layoutY="197.0" onAction="#SubmitEvalButtonOA" text="Submit Evaluation" />
+
+                                <TableView fx:id="PolicyTableView" layoutX="14.0" layoutY="251.0" prefHeight="265.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="PolicyIdCol" prefWidth="115.0" text="Policy Decision ID" />
+                                        <TableColumn fx:id="ReviewPeriodCol" prefWidth="105.0" text="Review Period" />
+                                        <TableColumn fx:id="ImplStatusCol" prefWidth="115.0" text="Impl. Status" />
+                                        <TableColumn fx:id="DeviationCol" prefWidth="185.0" text="Deviation Note" />
+                                        <TableColumn fx:id="EvalRemarksCol" prefWidth="210.0" text="Evaluation Remarks" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 4: Senior Officer Recommendations -->
+                <Tab text="4. Recs">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="80.0" layoutY="55.0" text="Rec ID:" />
+                                <TextField fx:id="RecIdTextField" layoutX="140.0" layoutY="38.0" prefWidth="165.0" />
+                                <Text layoutX="57.0" layoutY="105.0" text="Source Dept:" />
+                                <ComboBox fx:id="RecSourceDeptComboBox" layoutX="140.0" layoutY="88.0" prefWidth="165.0" promptText="Select Department" />
+                                <Text layoutX="72.0" layoutY="155.0" text="Summary:" />
+                                <TextField fx:id="SummaryTextField" layoutX="140.0" layoutY="138.0" prefWidth="165.0" />
+
+                                <Text layoutX="358.0" layoutY="55.0" text="Review Outcome:" />
+                                <ComboBox fx:id="OutcomeComboBox" layoutX="465.0" layoutY="38.0" prefWidth="170.0" promptText="Select Outcome" />
+                                <Text layoutX="383.0" layoutY="127.0" text="DG Remarks:" />
+                                <TextField fx:id="DGRemarksTextField" layoutX="465.0" layoutY="92.0" prefHeight="69.0" prefWidth="255.0" />
+
+                                <Button layoutX="223.0" layoutY="196.0" onAction="#LoadRecButtonOA" prefHeight="21.0" prefWidth="102.0" text="Load Queue" />
+                                <Button layoutX="417.0" layoutY="195.0" onAction="#RecConfirmReviewButtonOA" prefHeight="28.0" prefWidth="117.0" text="Confirm Review" />
+
+                                <TableView fx:id="RecTableView" layoutX="14.0" layoutY="239.0" prefHeight="277.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="RecIdCol" prefWidth="95.0" text="Rec ID" />
+                                        <TableColumn fx:id="RecSourceDeptCol" prefWidth="140.0" text="Source Dept" />
+                                        <TableColumn fx:id="RecSummaryCol" prefWidth="175.0" text="Summary" />
+                                        <TableColumn fx:id="ReviewOutcomeCol" prefWidth="120.0" text="Review Outcome" />
+                                        <TableColumn fx:id="DGRemarksCol" prefWidth="200.0" text="DG Remarks" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 5: Governor Decision Compliance -->
+                <Tab text="5. Compliance">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="66.0" layoutY="50.0" text="Decision ID:" />
+                                <TextField fx:id="DecisionIdTextField" layoutX="140.0" layoutY="33.0" prefWidth="165.0" />
+                                <Text layoutX="43.0" layoutY="103.0" text="Assigned Dept:" />
+                                <ComboBox fx:id="AssignedDeptComboBox" layoutX="140.0" layoutY="86.0" prefWidth="165.0" promptText="Select Department" />
+                                <Text layoutX="71.0" layoutY="155.0" text="Due Date:" />
+                                <DatePicker fx:id="ComplianceDueDatePicker" layoutX="140.0" layoutY="138.0" prefWidth="165.0" />
+
+                                <Text layoutX="351.0" layoutY="50.0" text="Compliance Status:" />
+                                <ComboBox fx:id="ComplianceStatusComboBox" layoutX="465.0" layoutY="33.0" prefWidth="170.0" promptText="Select Status" />
+                                <Text layoutX="348.0" layoutY="122.0" text="Compliance Finding:" />
+                                <TextField fx:id="FindingTextField" layoutX="465.0" layoutY="91.0" prefHeight="73.0" prefWidth="255.0" />
+
+                                <Button layoutX="223.0" layoutY="191.0" onAction="#CompLoadDecisionsButtonOA" prefHeight="28.0" prefWidth="106.0" text="Load Decisions" />
+                                <Button layoutX="436.0" layoutY="192.0" onAction="#SaveComplianceButtonOA" text="Escalate Breach" />
+
+                                <TableView fx:id="ComplianceTableView" layoutX="14.0" layoutY="242.0" prefHeight="274.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="DecisionIdCol" prefWidth="105.0" text="Decision ID" />
+                                        <TableColumn fx:id="AssignedDeptCol" prefWidth="140.0" text="Assigned Dept" />
+                                        <TableColumn fx:id="CompDueDateCol" prefWidth="110.0" text="Due Date" />
+                                        <TableColumn fx:id="ComplianceStatusCol" prefWidth="140.0" text="Compliance Status" />
+                                        <TableColumn fx:id="CompFindingCol" prefWidth="235.0" text="Compliance Finding" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 6: Cross-Department Coordination -->
+                <Tab text="6. Coord">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="40.0" layoutY="42.0" text="Coordination ID:" />
+                                <TextField fx:id="CoordIdTextField" layoutX="145.0" layoutY="29.0" prefWidth="165.0" />
+                                <Text layoutX="24.0" layoutY="88.0" text="Participating Depts:" />
+                                <TextField fx:id="ParticipatingDeptsTextField" layoutX="145.0" layoutY="79.0" prefWidth="165.0" />
+                                <Text layoutX="76.0" layoutY="154.0" text="Deadline:" />
+                                <DatePicker fx:id="DeadlineDatePicker" layoutX="145.0" layoutY="137.0" prefWidth="165.0" />
+
+                                <Text layoutX="418.0" layoutY="55.0" text="Status:" />
+                                <ComboBox fx:id="CoordStatusComboBox" layoutX="465.0" layoutY="38.0" prefWidth="170.0" promptText="Select Status" />
+                                <Text layoutX="356.0" layoutY="121.0" text="Coord. Instruction:" />
+                                <TextField fx:id="CoordInstructionTextField" layoutX="465.0" layoutY="91.0" prefHeight="75.0" prefWidth="255.0" />
+
+                                <Button layoutX="228.0" layoutY="197.0" onAction="#SendInstructionButtonOA" text="Send Instruction" />
+                                <Button layoutX="410.0" layoutY="197.0" onAction="#CloseCoordButtonOA" prefHeight="21.0" prefWidth="88.0" text="Close Item" />
+
+                                <TableView fx:id="CoordTableView" layoutX="14.0" layoutY="249.0" prefHeight="267.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="CoordIdCol" prefWidth="115.0" text="Coordination ID" />
+                                        <TableColumn fx:id="ParticipatingDeptsCol" prefWidth="165.0" text="Participating Depts" />
+                                        <TableColumn fx:id="DeadlineCol" prefWidth="105.0" text="Deadline" />
+                                        <TableColumn fx:id="CoordStatusCol" prefWidth="134.40005493164062" text="Status" />
+                                        <TableColumn fx:id="CoordInstructionCol" prefWidth="211.20001220703125" text="Coord. Instruction" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 7: Critical Issues for Assessment -->
+                <Tab text="7. Issues">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="83.0" layoutY="49.0" text="Issue ID:" />
+                                <TextField fx:id="IssueIdTextField" layoutX="140.0" layoutY="32.0" prefWidth="165.0" />
+                                <Text layoutX="59.0" layoutY="104.0" text="Source Dept:" />
+                                <ComboBox fx:id="IssueSourceDeptComboBox" layoutX="140.0" layoutY="87.0" prefWidth="165.0" promptText="Select Department" />
+                                <Text layoutX="82.0" layoutY="160.0" text="Severity:" />
+                                <ComboBox fx:id="SeverityComboBox" layoutX="140.0" layoutY="143.0" prefWidth="165.0" promptText="Select Severity" />
+
+                                <Text layoutX="363.0" layoutY="49.0" text="Escalation Status:" />
+                                <ComboBox fx:id="IssueStatusComboBox" layoutX="465.0" layoutY="32.0" prefWidth="170.0" promptText="Select Status" />
+                                <Text layoutX="340.0" layoutY="126.0" text="Assessment &amp; Action:" />
+                                <TextField fx:id="AssessmentTextField" layoutX="465.0" layoutY="83.0" prefHeight="86.0" prefWidth="255.0" />
+
+                                <Button layoutX="237.0" layoutY="191.0" onAction="#LoadIssuesButtonOA" text="Load Issues" />
+                                <Button layoutX="414.0" layoutY="191.0" onAction="#EscalateGovernorButtonOA" text="Escalate to Governor" />
+
+                                <TableView fx:id="IssueTableView" layoutX="14.0" layoutY="242.0" prefHeight="274.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="IssueIdCol" prefWidth="100.0" text="Issue ID" />
+                                        <TableColumn fx:id="IssueSourceDeptCol" prefWidth="140.0" text="Source Dept" />
+                                        <TableColumn fx:id="SeverityCol" prefWidth="130.39996337890625" text="Severity" />
+                                        <TableColumn fx:id="EscalationStatusCol" prefWidth="160.00003051757812" text="Escalation Status" />
+                                        <TableColumn fx:id="AssessmentCol" prefWidth="200.800048828125" text="Assessment &amp; Action" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- GOAL 8: Delegated Decisions -->
+                <Tab text="8. Delegated">
+                    <content>
+                        <AnchorPane prefHeight="530.0" prefWidth="760.0">
+                            <children>
+                                <Text layoutX="65.0" layoutY="52.0" text="Request ID:" />
+                                <TextField fx:id="RequestIdTextField" layoutX="140.0" layoutY="36.0" prefWidth="165.0" />
+                                <Text layoutX="59.0" layoutY="108.0" text="Department:" />
+                                <ComboBox fx:id="DeptComboBox" layoutX="140.0" layoutY="91.0" prefWidth="165.0" promptText="Select Department" />
+                                <Text layoutX="42.0" layoutY="164.0" text="Request Details:" />
+                                <TextField fx:id="DetailsTextField" layoutX="140.0" layoutY="147.0" prefWidth="165.0" />
+
+                                <Text layoutX="399.0" layoutY="52.0" text="Decision:" />
+                                <ComboBox fx:id="DecisionComboBox" layoutX="465.0" layoutY="36.0" prefWidth="170.0" promptText="Select Decision" />
+                                <Text layoutX="399.0" layoutY="114.0" text="Remarks:" />
+                                <TextField fx:id="DelegatedRemarksTextField" layoutX="465.0" layoutY="88.0" prefHeight="84.0" prefWidth="255.0" />
+
+                                <Button layoutX="235.0" layoutY="203.0" onAction="#LoadRequestsButtonOA" text="Load Requests" />
+                                <Button layoutX="411.0" layoutY="203.0" onAction="#DelegatedConfirmDecisionButtonOA" text="Confirm Decision" />
+
+                                <TableView fx:id="DelegatedTableView" layoutX="14.0" layoutY="250.0" prefHeight="266.0" prefWidth="732.0">
+                                    <columns>
+                                        <TableColumn fx:id="DelegatedRequestIdCol" prefWidth="100.0" text="Request ID" />
+                                        <TableColumn fx:id="DelegatedDeptCol" prefWidth="140.0" text="Department" />
+                                        <TableColumn fx:id="DelegatedDetailsCol" prefWidth="180.0" text="Request Details" />
+                                        <TableColumn fx:id="DelegatedDecisionCol" prefWidth="110.0" text="Decision" />
+                                        <TableColumn fx:id="DelegatedRemarksCol" prefWidth="200.0" text="Remarks" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
