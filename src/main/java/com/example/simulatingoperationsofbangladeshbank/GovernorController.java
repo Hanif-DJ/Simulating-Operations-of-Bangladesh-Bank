@@ -2,170 +2,174 @@ package com.example.simulatingoperationsofbangladeshbank;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class GovernorController {
     @javafx.fxml.FXML
     private DatePicker EffectiveDatePicker;
     @javafx.fxml.FXML
-    private TableColumn g5DecisionCol;
+    private TableColumn<RegulatoryDirective, String> g5DecisionCol;
     @javafx.fxml.FXML
     private TextField g8ObjectivesTextField;
     @javafx.fxml.FXML
     private TextField DeptTextField;
     @javafx.fxml.FXML
-    private TableColumn g7StatusCol;
+    private TableColumn<CriticalAlert, String> g7StatusCol;
     @javafx.fxml.FXML
-    private TableColumn RiskFlagCol;
+    private TableColumn<StabilityIndicator, String> RiskFlagCol;
     @javafx.fxml.FXML
-    private TableColumn ReportIdCol;
+    private TableColumn<InstitutionalReport, String> ReportIdCol;
     @javafx.fxml.FXML
-    private TableColumn DirectiveTitleCol;
+    private TableColumn<RegulatoryDirective, String> DirectiveTitleCol;
     @javafx.fxml.FXML
-    private TableColumn EffectiveDateCol;
+    private TableColumn<RegulatoryDirective, LocalDate> EffectiveDateCol;
     @javafx.fxml.FXML
-    private ComboBox g7StatusComboBox;
+    private ComboBox<String> g7StatusComboBox;
     @javafx.fxml.FXML
-    private ComboBox DeptComboBox;
+    private ComboBox<String> DeptComboBox;
     @javafx.fxml.FXML
-    private TableColumn RequestIdCol;
+    private TableColumn<MajorDecision, String> RequestIdCol;
     @javafx.fxml.FXML
-    private TableColumn DecisionCol;
+    private TableColumn<PolicyProposal, String> DecisionCol;
     @javafx.fxml.FXML
-    private TableColumn g8PlanIdCol;
+    private TableColumn<OperationalPlan, String> g8PlanIdCol;
     @javafx.fxml.FXML
     private TextField g4RemarksTextField;
     @javafx.fxml.FXML
     private TextField IndicatorIdTextField;
     @javafx.fxml.FXML
-    private TableColumn g8DecisionCol;
+    private TableColumn<OperationalPlan, String> g8DecisionCol;
     @javafx.fxml.FXML
-    private TableColumn ProposalIdCol;
+    private TableColumn<PolicyProposal, String> ProposalIdCol;
     @javafx.fxml.FXML
-    private TableColumn g6TargetCol;
+    private TableColumn<DepartmentPerformance, String> g6TargetCol;
     @javafx.fxml.FXML
-    private ComboBox g7SeverityComboBox;
+    private ComboBox<String> g7SeverityComboBox;
     @javafx.fxml.FXML
-    private ComboBox RiskFlagComboBox;
+    private ComboBox<String> RiskFlagComboBox;
     @javafx.fxml.FXML
-    private TableColumn ReqSummaryCol;
+    private TableColumn<MajorDecision, String> ReqSummaryCol;
     @javafx.fxml.FXML
-    private TableColumn DirectiveIdCol;
+    private TableColumn<RegulatoryDirective, String> DirectiveIdCol;
     @javafx.fxml.FXML
-    private TableView MajorDecisionTableView;
+    private TableView<MajorDecision> MajorDecisionTableView;
     @javafx.fxml.FXML
-    private ComboBox g6PeriodComboBox;
+    private ComboBox<String> g6PeriodComboBox;
     @javafx.fxml.FXML
-    private TableColumn GovernorRemarksCol;
+    private TableColumn<StabilityIndicator, String> GovernorRemarksCol;
     @javafx.fxml.FXML
-    private TableColumn IndicatorIdCol;
+    private TableColumn<StabilityIndicator, String> IndicatorIdCol;
     @javafx.fxml.FXML
-    private ComboBox selectDecisionComboBox;
+    private ComboBox<String> selectDecisionComboBox;
     @javafx.fxml.FXML
-    private TableColumn g6DirectionCol;
+    private TableColumn<DepartmentPerformance, String> g6DirectionCol;
     @javafx.fxml.FXML
     private TextField ProposalIdTextField;
     @javafx.fxml.FXML
-    private TableColumn g6DeptCol;
+    private TableColumn<DepartmentPerformance, String> g6DeptCol;
     @javafx.fxml.FXML
-    private TableColumn g4GovernorRemarksCol;
+    private TableColumn<InstitutionalReport, String> g4GovernorRemarksCol;
     @javafx.fxml.FXML
-    private ComboBox g7SourceDeptComboBox;
+    private ComboBox<String> g7SourceDeptComboBox;
     @javafx.fxml.FXML
-    private TableColumn g7DirectionCol;
+    private TableColumn<CriticalAlert, String> g7DirectionCol;
     @javafx.fxml.FXML
     private TextField StrategicDirectionTextField;
     @javafx.fxml.FXML
-    private TableColumn DecisionNoteCol;
+    private TableColumn<PolicyProposal, String> DecisionNoteCol;
     @javafx.fxml.FXML
-    private TableColumn g6PeriodCol;
+    private TableColumn<DepartmentPerformance, String> g6PeriodCol;
     @javafx.fxml.FXML
-    private TableColumn ReportingPeriodCol;
+    private TableColumn<StabilityIndicator, String> ReportingPeriodCol;
     @javafx.fxml.FXML
     private TextField PolicyTitleTextField;
     @javafx.fxml.FXML
-    private TableView ReportTableView;
+    private TableView<InstitutionalReport> ReportTableView;
     @javafx.fxml.FXML
-    private TableColumn g7IncidentIdCol;
+    private TableColumn<CriticalAlert, String> g7IncidentIdCol;
     @javafx.fxml.FXML
-    private TableColumn g3DecisionCol;
+    private TableColumn<MajorDecision, String> g3DecisionCol;
     @javafx.fxml.FXML
-    private TableView g2StabilityTableView;
+    private TableView<StabilityIndicator> g2StabilityTableView;
     @javafx.fxml.FXML
-    private TableColumn DeptCol;
+    private TableColumn<MajorDecision, String> DeptCol;
     @javafx.fxml.FXML
-    private TableColumn PreparedByCol;
+    private TableColumn<PolicyProposal, String> PreparedByCol;
     @javafx.fxml.FXML
     private TextField StrategicTargetTextField;
     @javafx.fxml.FXML
-    private TableColumn DepartmentCol;
+    private TableColumn<StabilityIndicator, String> DepartmentCol;
     @javafx.fxml.FXML
-    private TableColumn g7SeverityCol;
+    private TableColumn<CriticalAlert, String> g7SeverityCol;
     @javafx.fxml.FXML
-    private TableColumn g8VersionCol;
+    private TableColumn<OperationalPlan, String> g8VersionCol;
     @javafx.fxml.FXML
-    private TableView ProposalTableView;
+    private TableView<PolicyProposal> ProposalTableView;
     @javafx.fxml.FXML
-    private ComboBox g5DecisionComboBox;
+    private ComboBox<String> g5DecisionComboBox;
     @javafx.fxml.FXML
     private Label StatusSummaryLabel;
     @javafx.fxml.FXML
-    private TableColumn ReportVersionCol;
+    private TableColumn<InstitutionalReport, String> ReportVersionCol;
     @javafx.fxml.FXML
-    private TableView PerformanceTableView;
+    private TableView<DepartmentPerformance> PerformanceTableView;
     @javafx.fxml.FXML
     private TextField g7IncidentIdTextField;
     @javafx.fxml.FXML
     private TextField g5RemarksTextField;
     @javafx.fxml.FXML
-    private TableColumn g7SourceDeptCol;
+    private TableColumn<CriticalAlert, String> g7SourceDeptCol;
     @javafx.fxml.FXML
-    private ComboBox g8DecisionComboBox;
+    private ComboBox<String> g8DecisionComboBox;
     @javafx.fxml.FXML
     private TextField g7DirectionTextField;
     @javafx.fxml.FXML
-    private ComboBox DepartmentComboBox;
+    private ComboBox<String> DepartmentComboBox;
     @javafx.fxml.FXML
-    private TableColumn TitleCol;
+    private TableColumn<PolicyProposal, String> TitleCol;
     @javafx.fxml.FXML
     private TextField g4ReportVersionTextField;
     @javafx.fxml.FXML
     private TextField GovernorRemarksTextField;
     @javafx.fxml.FXML
-    private TableColumn g5RemarksCol;
+    private TableColumn<RegulatoryDirective, String> g5RemarksCol;
     @javafx.fxml.FXML
-    private ComboBox g4PeriodComboBox;
+    private ComboBox<String> g4PeriodComboBox;
     @javafx.fxml.FXML
     private TextField DecisonNoteTextField;
     @javafx.fxml.FXML
     private TextField TitleTextField;
     @javafx.fxml.FXML
-    private TableColumn g6ActualCol;
+    private TableColumn<DepartmentPerformance, String> g6ActualCol;
     @javafx.fxml.FXML
-    private TableColumn g8RemarksCol;
+    private TableColumn<OperationalPlan, String> g8RemarksCol;
     @javafx.fxml.FXML
-    private ComboBox ReportingPeriodComboBox;
+    private ComboBox<String> ReportingPeriodComboBox;
     @javafx.fxml.FXML
     private TextField ActualTextField;
     @javafx.fxml.FXML
     private TextField ConditionsTextField;
     @javafx.fxml.FXML
-    private TableColumn g8ObjectivesCol;
+    private TableColumn<OperationalPlan, String> g8ObjectivesCol;
     @javafx.fxml.FXML
-    private ComboBox ReviewStatusComboBox;
+    private ComboBox<String> ReviewStatusComboBox;
     @javafx.fxml.FXML
     private TextField g8PlanIdTextField;
     @javafx.fxml.FXML
     private TextField RequestIdTextField;
     @javafx.fxml.FXML
-    private TableColumn ReviewStatusCol;
+    private TableColumn<InstitutionalReport, String> ReviewStatusCol;
     @javafx.fxml.FXML
-    private TableView DirectiveTableView;
+    private TableView<RegulatoryDirective> DirectiveTableView;
     @javafx.fxml.FXML
-    private TableColumn g6RiskRatingCol;
+    private TableColumn<DepartmentPerformance, String> g6RiskRatingCol;
     @javafx.fxml.FXML
-    private TableView g7AlertTableView;
+    private TableView<CriticalAlert> g7AlertTableView;
     @javafx.fxml.FXML
-    private TableView g8PlanTableView;
+    private TableView<OperationalPlan> g8PlanTableView;
     @javafx.fxml.FXML
     private TextField ReportIdTextField;
     @javafx.fxml.FXML
@@ -173,23 +177,90 @@ public class GovernorController {
     @javafx.fxml.FXML
     private TextField PreparedByTextField;
     @javafx.fxml.FXML
-    private TableColumn ConditionsCol;
+    private TableColumn<MajorDecision, String> ConditionsCol;
     @javafx.fxml.FXML
     private TextField g8VersionTextField;
     @javafx.fxml.FXML
-    private TableColumn g4PeriodCol;
+    private TableColumn<InstitutionalReport, String> g4PeriodCol;
     @javafx.fxml.FXML
     private TextField g8RemarksTextField;
     @javafx.fxml.FXML
-    private ComboBox RiskRatingComboBox;
+    private ComboBox<String> RiskRatingComboBox;
     @javafx.fxml.FXML
     private TextField DirectiveIdTextField;
     @javafx.fxml.FXML
-    private ComboBox DecisionComboBox;
+    private ComboBox<String> DecisionComboBox;
+
+
+    private ArrayList<PolicyProposal> proposalList = new ArrayList<>();
+    private ArrayList<StabilityIndicator> stabilityList = new ArrayList<>();
+    private ArrayList<MajorDecision> majorDecisionList = new ArrayList<>();
+    private ArrayList<InstitutionalReport> reportList = new ArrayList<>();
+    private ArrayList<RegulatoryDirective> directiveList = new ArrayList<>();
+    private ArrayList<DepartmentPerformance> performanceList = new ArrayList<>();
+    private ArrayList<CriticalAlert> alertList = new ArrayList<>();
+    private ArrayList<OperationalPlan> planList = new ArrayList<>();
+
 
 
     @javafx.fxml.FXML
     public void initialize() {
+        selectDecisionComboBox.getItems().addAll("Approved", "Rejected", "Returned for Revision");
+        DecisionComboBox.getItems().addAll("Approved", "Rejected", "Returned for Revision");
+        g5DecisionComboBox.getItems().addAll("Approved", "Rejected", "Returned for Revision");
+        g8DecisionComboBox.getItems().addAll("Approved", "Rejected", "Returned for Revision");
+        ReportingPeriodComboBox.getItems().addAll("Q1-2026", "Q2-2026", "Q3-2026", "Q4-2026");
+        g4PeriodComboBox.getItems().addAll("Q1-2026", "Q2-2026", "Q3-2026", "Q4-2026");
+        g6PeriodComboBox.getItems().addAll("Q1-2026", "Q2-2026", "Q3-2026", "Q4-2026");
+        DepartmentComboBox.getItems().addAll("Bank Supervision", "Monetary Policy", "Currency Management", "Foreign Exchange", "Payment Systems");
+        DeptComboBox.getItems().addAll("Bank Supervision", "Monetary Policy", "Currency Management", "Foreign Exchange", "Payment Systems");
+        g7SourceDeptComboBox.getItems().addAll("Bank Supervision", "Monetary Policy", "Currency Management", "Foreign Exchange", "Payment Systems");
+        RiskFlagComboBox.getItems().addAll("Low", "Medium", "High", "Critical");
+        RiskRatingComboBox.getItems().addAll("Low", "Medium", "High", "Critical");
+        g7SeverityComboBox.getItems().addAll("Low", "Medium", "High", "Critical");
+        ReviewStatusComboBox.getItems().addAll("Governor Reviewed", "Correction Requested", "Pending Review");
+        g7StatusComboBox.getItems().addAll("Escalated", "Direction Issued", "Resolved");
+        ProposalIdCol.setCellValueFactory(new PropertyValueFactory<>("proposalId"));
+        TitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        PreparedByCol.setCellValueFactory(new PropertyValueFactory<>("preparedBy"));
+        DecisionCol.setCellValueFactory(new PropertyValueFactory<>("decision"));
+        DecisionNoteCol.setCellValueFactory(new PropertyValueFactory<>("decisionNote"));
+        IndicatorIdCol.setCellValueFactory(new PropertyValueFactory<>("indicatorId"));
+        ReportingPeriodCol.setCellValueFactory(new PropertyValueFactory<>("reportingPeriod"));
+        DepartmentCol.setCellValueFactory(new PropertyValueFactory<>("department"));
+        RiskFlagCol.setCellValueFactory(new PropertyValueFactory<>("riskFlag"));
+        GovernorRemarksCol.setCellValueFactory(new PropertyValueFactory<>("governorRemarks"));
+        RequestIdCol.setCellValueFactory(new PropertyValueFactory<>("requestId"));
+        DeptCol.setCellValueFactory(new PropertyValueFactory<>("department"));
+        ReqSummaryCol.setCellValueFactory(new PropertyValueFactory<>("requestSummary"));
+        g3DecisionCol.setCellValueFactory(new PropertyValueFactory<>("decision"));
+        ConditionsCol.setCellValueFactory(new PropertyValueFactory<>("conditions"));
+        ReportIdCol.setCellValueFactory(new PropertyValueFactory<>("reportId"));
+        g4PeriodCol.setCellValueFactory(new PropertyValueFactory<>("period"));
+        ReportVersionCol.setCellValueFactory(new PropertyValueFactory<>("reportVersion"));
+        ReviewStatusCol.setCellValueFactory(new PropertyValueFactory<>("reviewStatus"));
+        g4GovernorRemarksCol.setCellValueFactory(new PropertyValueFactory<>("governorRemarks"));
+        DirectiveIdCol.setCellValueFactory(new PropertyValueFactory<>("directiveId"));
+        DirectiveTitleCol.setCellValueFactory(new PropertyValueFactory<>("directiveTitle"));
+        EffectiveDateCol.setCellValueFactory(new PropertyValueFactory<>("effectiveDate"));
+        g5DecisionCol.setCellValueFactory(new PropertyValueFactory<>("decision"));
+        g5RemarksCol.setCellValueFactory(new PropertyValueFactory<>("remarks"));
+        g6DeptCol.setCellValueFactory(new PropertyValueFactory<>("department"));
+        g6PeriodCol.setCellValueFactory(new PropertyValueFactory<>("period"));
+        g6TargetCol.setCellValueFactory(new PropertyValueFactory<>("strategicTarget"));
+        g6ActualCol.setCellValueFactory(new PropertyValueFactory<>("actualResult"));
+        g6RiskRatingCol.setCellValueFactory(new PropertyValueFactory<>("riskRating"));
+        g6DirectionCol.setCellValueFactory(new PropertyValueFactory<>("direction"));
+        g7IncidentIdCol.setCellValueFactory(new PropertyValueFactory<>("incidentId"));
+        g7SourceDeptCol.setCellValueFactory(new PropertyValueFactory<>("sourceDept"));
+        g7SeverityCol.setCellValueFactory(new PropertyValueFactory<>("severity"));
+        g7StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+        g7DirectionCol.setCellValueFactory(new PropertyValueFactory<>("emergencyDirection"));
+        g8PlanIdCol.setCellValueFactory(new PropertyValueFactory<>("planId"));
+        g8VersionCol.setCellValueFactory(new PropertyValueFactory<>("version"));
+        g8ObjectivesCol.setCellValueFactory(new PropertyValueFactory<>("strategicObjectives"));
+        g8DecisionCol.setCellValueFactory(new PropertyValueFactory<>("decision"));
+        g8RemarksCol.setCellValueFactory(new PropertyValueFactory<>("instructions"));
     }
 
     @javafx.fxml.FXML
