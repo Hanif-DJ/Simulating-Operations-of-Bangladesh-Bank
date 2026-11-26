@@ -265,18 +265,92 @@ public class GovernorController {
 
     @javafx.fxml.FXML
     public void IssueEmergencyDirectionButton(ActionEvent actionEvent) {
+        String id = g7IncidentIdTextField.getText();
+        String dept = g7SourceDeptComboBox.getValue();
+        String severity = g7SeverityComboBox.getValue();
+        String status = g7StatusComboBox.getValue();
+        String direction = g7DirectionTextField.getText();
+        if (id.isEmpty()||dept==null||severity==null||status== null||direction.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill the req fields");
+            alert.showAndWait();
+            return;
+        }
+        for (CriticalAlert c : alertList) {
+            if (c.getIncidentId().equalsIgnoreCase(id)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("id already exists");
+                alert.showAndWait();
+                return;
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void SaveReviewButtonOA(ActionEvent actionEvent) {
+
+        String id = ReportIdTextField.getText();
+        String period = g4PeriodComboBox.getValue();
+        String version = g4ReportVersionTextField.getText();
+        String status = ReviewStatusComboBox.getValue();
+
+        // check all the fields
+        if (id.isEmpty()||period==null||version.isEmpty()||status == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please fill in Report ID, Reporting Period, Report Version, and Review Status.");
+            alert.showAndWait();
+            return;
+        }
+
+        // duplicate report id
+        for (InstitutionalReport r : reportList) {
+            if (r.getReportId().equalsIgnoreCase(id)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("report id already exist");
+                alert.showAndWait();
+                return;
+            }
+        }
+
+
     }
 
     @javafx.fxml.FXML
     public void ConfirmPlanButtonOA(ActionEvent actionEvent) {
+        String id = g8PlanIdTextField.getText();
+        String version = g8VersionTextField.getText();
+        String objectives = g8ObjectivesTextField.getText();
+        String decision = g8DecisionComboBox.getValue();
+        String remarks = g8RemarksTextField.getText();
+        if (id.isEmpty()||version.isEmpty()||objectives.isEmpty() || decision==null||remarks.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill the req fields");
+            alert.showAndWait();
+            return;
+        }
+        for (OperationalPlan p : planList) {
+            if (p.getPlanId().equalsIgnoreCase(id)&&p.getVersion().equalsIgnoreCase(version)){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("id is already in the list");
+                alert.showAndWait();
+                return;
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void g4RequestCorrectionButtonOA(ActionEvent actionEvent) {
+        String id = ReportIdTextField.getText();
+        String period = g4PeriodComboBox.getValue();
+        String version = g4ReportVersionTextField.getText();
+        String remarks = g4RemarksTextField.getText();
+        // need all fields data
+        if (id.isEmpty()||period == null||version.isEmpty()||remarks.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill all the fields");
+            alert.showAndWait();
+            return;
+        }
     }
 
     @javafx.fxml.FXML
@@ -285,14 +359,79 @@ public class GovernorController {
 
     @javafx.fxml.FXML
     public void ConfirmAuthButtonOA(ActionEvent actionEvent) {
+        String id =RequestIdTextField.getText();
+        String dept= DeptTextField.getText();
+        String summary=RequestSummaryTextField.getText();
+        String decision=DecisionComboBox.getValue();
+        String conditions=ConditionsTextField.getText();
+        //empty fields
+        if (id.isEmpty()||dept.isEmpty()||summary.isEmpty()||decision==null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill all the fields");
+            alert.showAndWait();
+            return;
+        }
+        // conditions when rejecting or returning
+        if ((decision.equals("Rejected") || decision.equals("Returned for Revision")) && conditions.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("condition need to be fill");
+            alert.showAndWait();
+            return;
+        }
+        //duplicate req id
+        for (MajorDecision m : majorDecisionList) {
+            if (m.getRequestId().equalsIgnoreCase(id)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("req id already exists");
+                alert.showAndWait();
+                return;
+            }
+        }
+
     }
 
     @javafx.fxml.FXML
     public void ConfirmDirectiveButtonOA(ActionEvent actionEvent) {
+        String id = DirectiveIdTextField.getText();
+        String title = TitleTextField.getText();
+        LocalDate effDate = EffectiveDatePicker.getValue();
+        String decision = g5DecisionComboBox.getValue();
+        String remarks = g5RemarksTextField.getText();
+        if (id.isEmpty() || title.isEmpty() || effDate == null || decision == null || remarks.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill all the fields");
+            alert.showAndWait();
+            return;
+        }
+        //effective date cant be in the past date
+
+        if (decision.equals("Approved")&&effDate.isBefore(LocalDate.now())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("effective Date cant be past date");
+            alert.showAndWait();
+            return;
+        }
+
+        for (RegulatoryDirective d : directiveList) {
+            if (d.getDirectiveId().equalsIgnoreCase(id)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("id already exists");
+                alert.showAndWait();
+                return;
+            }
+        }
+
     }
 
     @javafx.fxml.FXML
     public void LoadReportButtonOA(ActionEvent actionEvent) {
+        // Validation: Check if reportList is empty
+        if (reportList.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("No institutional reports found.");
+            alert.showAndWait();
+            return;
+        }
     }
 
     @javafx.fxml.FXML
@@ -301,18 +440,85 @@ public class GovernorController {
 
     @javafx.fxml.FXML
     public void SaveDirectionButtonOA(ActionEvent actionEvent) {
+        String dept =DeptComboBox.getValue();
+        String period=g6PeriodComboBox.getValue();
+        String target=StrategicTargetTextField.getText();
+        String actual =ActualTextField.getText();
+        String risk =RiskRatingComboBox.getValue();
+        String direction= StrategicDirectionTextField.getText();
+
+        if (dept ==null||period==null||target.isEmpty()||actual.isEmpty()||risk == null||direction.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill the req fields");
+            alert.showAndWait();
+            return;
+        }
+        //duplicate dept +record
+        for (DepartmentPerformance dp : performanceList) {
+            if (dp.getDepartment().equalsIgnoreCase(dept)&& dp.getPeriod().equalsIgnoreCase(period)){
+                Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Performance record for this Department and Period already exists!");
+                alert.showAndWait();
+                return;
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void LoadKpiButtonOA(ActionEvent actionEvent) {
+        if (performanceList.isEmpty()){
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("No department KPI records found.");
+            alert.showAndWait();
+            return;
+        }
     }
 
     @javafx.fxml.FXML
     public void LoadQueueOA(ActionEvent actionEvent) {
+        // Validation: Check if the list is empty
+        if (proposalList.isEmpty()) {
+            Alert alert =new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("list is empty");
+            alert.showAndWait();
+            return;
+        }
+
     }
 
     @javafx.fxml.FXML
     public void ConfirmDecisionOA(ActionEvent actionEvent) {
+        String id=ProposalIdTextField.getText();
+        String title =PolicyTitleTextField.getText();
+        String preparedBy=PreparedByTextField.getText();
+        String decision=selectDecisionComboBox.getValue();
+        String note =DecisonNoteTextField.getText();
+
+        // empty req fields
+        if (id.isEmpty()||title.isEmpty()||preparedBy.isEmpty()||decision == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please fill all the required box");
+            alert.showAndWait();
+            return;
+        }
+
+        // decision need if rejected or return clicked
+        if (decision.equals("Rejected")||decision.equals("Returned for Revision")&&note.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Decision Note is required");
+            alert.showAndWait();
+            return;
+        }
+        // for duplicate id
+        for (PolicyProposal p: proposalList) {
+            if (p.getProposalId().equalsIgnoreCase(id)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("id is already exists");
+                alert.showAndWait();
+                return;
+            }
+        }
+
     }
 
     @javafx.fxml.FXML
