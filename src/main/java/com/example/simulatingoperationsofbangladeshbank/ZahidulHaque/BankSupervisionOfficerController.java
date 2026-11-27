@@ -2,6 +2,7 @@ package com.example.simulatingoperationsofbangladeshbank.ZahidulHaque;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
 
@@ -158,7 +159,75 @@ public class BankSupervisionOfficerController {
     @javafx.fxml.FXML
     public void initialize() {
 
+        /*U4G1_CommercialBank to U4G8_SupervisionReport for all ComboBox and Filtering items*/
+        g1RegStatusComboBox.getItems().addAll("Registered", "Pending", "Suspended");
+        g3CategoryComboBox.getItems().addAll("Capital Adequacy", "AML/CFT", "Loan Classification", "IT Security");
+        g3SeverityComboBox.getItems().addAll("Low", "Medium", "High", "Critical");
+        g3StatusComboBox.getItems().addAll("Open", "Under Review", "Closed");
+        g4PeriodComboBox.getItems().addAll("Q1-2026", "Q2-2026", "Q3-2026", "Q4-2026");
+        g4StatusComboBox.getItems().addAll("Compliant", "Partially Compliant", "Non-Compliant");
+        g5SeverityComboBox.getItems().addAll("Minor", "Major", "Severe");
+        g5StatusComboBox.getItems().addAll("Reported", "Penalty Issued", "Resolved");
+        g6StatusComboBox.getItems().addAll("Assigned", "In Progress", "Verified");
+        g8PeriodComboBox.getItems().addAll("Q1-2026", "Q2-2026", "Q3-2026", "Q4-2026");
 
+        /*U4G1_CommercialBank: String bankId, String name, String registrationNo,
+         String registrationStatus
+         */
+        g1BankIdCol.setCellValueFactory(new PropertyValueFactory<>("bankId"));
+        g1BankNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        g1RegNoCol.setCellValueFactory(new PropertyValueFactory<>("registrationNo"));
+        g1RegStatusCol.setCellValueFactory(new PropertyValueFactory<>("registrationStatus"));
+
+        /*U4G2_InspectionSchedule: String scheduleId, String bankId, LocalDate inspectionDate,
+         String team, String status
+         */
+        g2ScheduleIdCol.setCellValueFactory(new PropertyValueFactory<>("scheduleId"));
+        g2BankIdCol.setCellValueFactory(new PropertyValueFactory<>("bankId"));
+        g2DateCol.setCellValueFactory(new PropertyValueFactory<>("inspectionDate"));
+        g2TeamCol.setCellValueFactory(new PropertyValueFactory<>("team"));
+        g2StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        /*U4G3_InspectionFinding: String findingId, String area, String category,
+         String severity, String status
+         */
+        g3FindingIdCol.setCellValueFactory(new PropertyValueFactory<>("findingId"));
+        g3AreaCol.setCellValueFactory(new PropertyValueFactory<>("area"));
+        g3CategoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+        g3SeverityCol.setCellValueFactory(new PropertyValueFactory<>("severity"));
+        g3StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        /*U4G4_ComplianceRecord: String complianceId, String period, String status, String monitoringNote*/
+        g4ComplianceIdCol.setCellValueFactory(new PropertyValueFactory<>("complianceId"));
+        g4PeriodCol.setCellValueFactory(new PropertyValueFactory<>("period"));
+        g4StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+        g4NoteCol.setCellValueFactory(new PropertyValueFactory<>("monitoringNote"));
+
+        /*U4G5_BankingViolation: String violationId, String severity, String evidenceRef, String status*/
+        g5ViolationIdCol.setCellValueFactory(new PropertyValueFactory<>("violationId"));
+        g5SeverityCol.setCellValueFactory(new PropertyValueFactory<>("severity"));
+        g5EvidenceCol.setCellValueFactory(new PropertyValueFactory<>("evidenceRef"));
+        g5StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        /*U4G6_CorrectiveAction: String actionId, String requiredAction, LocalDate dueDate,
+         String status, String evidenceRef
+         */
+        g6ActionIdCol.setCellValueFactory(new PropertyValueFactory<>("actionId"));
+        g6ReqActionCol.setCellValueFactory(new PropertyValueFactory<>("requiredAction"));
+        g6DueDateCol.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+        g6StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+        g6EvidenceCol.setCellValueFactory(new PropertyValueFactory<>("evidenceRef"));
+
+        /*U4G7_SupervisionRecord: String recordId, String bankId, String history*/
+        g7RecordIdCol.setCellValueFactory(new PropertyValueFactory<>("recordId"));
+        g7BankIdCol.setCellValueFactory(new PropertyValueFactory<>("bankId"));
+        g7HistoryCol.setCellValueFactory(new PropertyValueFactory<>("history"));
+
+        /*U4G8_SupervisionReport: String reportId, String bankId, String period, String status*/
+        g8ReportIdCol.setCellValueFactory(new PropertyValueFactory<>("reportId"));
+        g8BankIdCol.setCellValueFactory(new PropertyValueFactory<>("bankId"));
+        g8PeriodCol.setCellValueFactory(new PropertyValueFactory<>("period"));
+        g8StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 
     }
 
