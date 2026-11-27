@@ -69,6 +69,8 @@
                         </TableView>
                         <ComboBox fx:id="g2BankIdComboBox" layoutX="149.0" layoutY="67.0" prefWidth="150.0" promptText="Select Bank" />
                         <DatePicker fx:id="g2InspectionDateDP" layoutX="150.0" layoutY="110.0" />
+                        <ComboBox fx:id="g2StatusComboBox" layoutX="590.0" layoutY="27.0" prefWidth="150.0" promptText="Select Status" />
+                        <Text layoutX="504.0" layoutY="44.0" text="Status:" wrappingWidth="71.236328125" />
                      </children>
                   </AnchorPane>
                </content>
