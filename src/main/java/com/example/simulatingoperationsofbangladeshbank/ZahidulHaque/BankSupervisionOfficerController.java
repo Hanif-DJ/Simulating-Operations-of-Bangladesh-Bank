@@ -157,6 +157,8 @@ public class BankSupervisionOfficerController {
     private TableColumn<U4G5_BankingViolation, String> g5SeverityCol;
     @javafx.fxml.FXML
     private TableColumn<U4G6_CorrectiveAction, LocalDate> g6DueDateCol;
+    @javafx.fxml.FXML
+    private ComboBox<String> g2StatusComboBox;
 
     /*ArrayLists for loading objects from .bin files for U4G1 to U4G8*/
     private ArrayList<U4G1_CommercialBank> bankList = new ArrayList<>();
@@ -169,11 +171,13 @@ public class BankSupervisionOfficerController {
     private ArrayList<U4G1_CommercialBank> reportList  = new ArrayList<>();
 
 
+
     @javafx.fxml.FXML
     public void initialize() {
 
         /*U4G1_CommercialBank to U4G8_SupervisionReport for all ComboBox and Filtering items*/
         g1RegStatusComboBox.getItems().addAll("Registered", "Pending", "Suspended");
+        g2StatusComboBox.getItems().addAll("Scheduled", "In Progress", "Completed", "Canceled", "Postponed");
         g3CategoryComboBox.getItems().addAll("Capital Adequacy", "AML/CFT", "Loan Classification", "IT Security");
         g3SeverityComboBox.getItems().addAll("Low", "Medium", "High", "Critical");
         g3StatusComboBox.getItems().addAll("Open", "Under Review", "Closed");
@@ -248,6 +252,68 @@ public class BankSupervisionOfficerController {
 
     @javafx.fxml.FXML
     public void handleG2ScheduleInspectionButton(ActionEvent actionEvent) {
+        /*U4G2 ScheduleInspectionButton*/
+        /*String scheduleId, String bankId, LocalDate inspectionDate, String team, String status*/
+        U4G2_InspectionSchedule s = new U4G2_InspectionSchedule(
+                g2ScheduleIdTextField.getText(),
+                g2BankIdComboBox.getValue(),
+                g2InspectionDateDP.getValue(),
+                g2TeamTextField.getText(),
+                g2StatusComboBox.getValue()
+        );
+
+        File f = null;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            f = new File("U4G2_InspectionSchedule.bin");
+            if (f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new AppendableObjectOutputStream(fos);
+            } else {
+                fos = new FileOutputStream(f);
+                oos = new ObjectOutputStream(fos);
+            }
+            oos.writeObject(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        loadSchedules();
+    }
+
+    private void loadSchedules() {
+        scheduleList.clear();
+        File f = new File("U4G2_InspectionSchedule.bin");
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            if (f.exists()) {
+                fis = new FileInputStream(f);
+                ois = new ObjectInputStream(fis);
+                while (true) {
+                    U4G2_InspectionSchedule s = (U4G2_InspectionSchedule) ois.readObject();
+                    scheduleList.add(s);
+                }
+            }
+        } catch (Exception e) {
+            // Reached end of file
+        } finally {
+            try {
+                if (ois != null) ois.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        g2ScheduleTableView.getItems().clear();
+        g2ScheduleTableView.getItems().addAll(scheduleList);
     }
 
     @javafx.fxml.FXML
@@ -322,8 +388,6 @@ public class BankSupervisionOfficerController {
 
         g1BankTableView.getItems().clear();
         g1BankTableView.getItems().addAll(bankList);
-
-
 }
 
     @javafx.fxml.FXML
