@@ -413,4 +413,8 @@ public class BankSupervisionOfficerController {
     @javafx.fxml.FXML
     public void handleG3AddInspectionFindingButton(ActionEvent actionEvent) {
     }
+
+    @javafx.fxml.FXML
+    public void handleG4ComplianceRecordButton(ActionEvent actionEvent) {
+    }
 }
