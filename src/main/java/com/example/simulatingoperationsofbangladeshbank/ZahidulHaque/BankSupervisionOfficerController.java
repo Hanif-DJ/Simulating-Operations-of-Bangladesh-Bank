@@ -361,7 +361,7 @@ public class BankSupervisionOfficerController {
 
 
 
-        File f = new File("U4G1_CommercialBank");
+        File f = new File("U4G1_CommercialBank.bin");
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
