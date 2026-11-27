@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class DeputyGovernorController
 {
@@ -185,9 +186,17 @@ public class DeputyGovernorController
     @javafx.fxml.FXML
     private ComboBox<String> DecisionComboBox;
 
+    ArrayList<DepartmentReport>deptReportList=new ArrayList<>();
+    ArrayList<SupervisoryInstruction>instructionList=new ArrayList<>();
+    ArrayList<PolicyReview>policyReviewList =new ArrayList<>();
+    ArrayList<OfficerRecommendation>recList =new ArrayList<>();
+    ArrayList<ComplianceRecord>complianceList= new ArrayList<>();
+    ArrayList<CoordinationItem>coordList =new ArrayList<>();
+    ArrayList<CriticalAlert>issueList= new ArrayList<>();
+    ArrayList<DelegatedDecision>delegatedList=new ArrayList<>();
+
     @javafx.fxml.FXML
     public void initialize() {
-
         ReportDeptComboBox.getItems().addAll("Bank Supervision", "Monetary Policy", "Currency Management", "Foreign Exchange", "Payment Systems");
         SupDeptComboBox.getItems().addAll("Bank Supervision", "Monetary Policy", "Currency Management", "Foreign Exchange", "Payment Systems");
         RecSourceDeptComboBox.getItems().addAll("Bank Supervision", "Monetary Policy", "Currency Management", "Foreign Exchange", "Payment Systems");
@@ -249,65 +258,6 @@ public class DeputyGovernorController
 
     }
 
-    @Deprecated
-    public void g6CloseCoordButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g3SubmitEvalButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g1SubmitReviewButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g3LoadPolicyButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g5SaveComplianceButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g5LoadDecisionsButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g7LoadIssuesButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g6SendInstructionButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g1LoadReportsButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g4LoadRecButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g8ConfirmDecisionButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g8LoadRequestsButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g4ConfirmReviewButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g7EscalateGovernorButtonOA(ActionEvent actionEvent) {
-    }
-
-    @Deprecated
-    public void g2IssueInstructionButtonOA(ActionEvent actionEvent) {
-    }
 
     @javafx.fxml.FXML
     public void signOutButtonOA(ActionEvent actionEvent) {
@@ -315,61 +265,366 @@ public class DeputyGovernorController
 
     @javafx.fxml.FXML
     public void LoadIssuesButtonOA(ActionEvent actionEvent) {
+        if (issueList.isEmpty()) {
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("No issues found");
+            alert.showAndWait();
+            return;
+        }
+        String dept=IssueSourceDeptComboBox.getValue();
+        String severity=SeverityComboBox.getValue();
+        IssueTableView.getItems().clear();
+        for (CriticalAlert c:issueList) {
+            boolean matchDept=(dept==null)||c.getSourceDept().equalsIgnoreCase(dept);
+            boolean matchSeverity =(severity==null)||c.getSeverity().equalsIgnoreCase(severity);
+            if (matchDept && matchSeverity){
+                IssueTableView.getItems().add(c);
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void LoadReportsButtonOA(ActionEvent actionEvent) {
+        if (deptReportList.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("No department reports found.");
+            alert.showAndWait();
+            return;
+        }
+        String dept=ReportDeptComboBox.getValue();
+        String period=ReportingPeriodComboBox.getValue();
+        ReportTableView.getItems().clear();
+        for (DepartmentReport r : deptReportList) {
+            boolean matchDept=(dept==null)||r.getDepartment().equalsIgnoreCase(dept);
+            boolean matchPeriod =(period==null)||r.getReportingPeriod().equalsIgnoreCase(period);
+            if (matchDept && matchPeriod) {
+                ReportTableView.getItems().add(r);
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void CloseCoordButtonOA(ActionEvent actionEvent) {
+        String id = CoordIdTextField.getText();
+        if (id.isEmpty()) {
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("enter the coordination id");
+            alert.showAndWait();
+            return;
+        }
+        boolean found = false;
+        for (CoordinationItem c:coordList) {
+            if (c.getCoordId().equalsIgnoreCase(id)) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("coordination id not found!");
+            alert.showAndWait();
+            return;
+        }
     }
 
     @javafx.fxml.FXML
     public void SendInstructionButtonOA(ActionEvent actionEvent) {
+        String id = CoordIdTextField.getText();
+        String depts = ParticipatingDeptsTextField.getText();
+        LocalDate deadline = DeadlineDatePicker.getValue();
+        String status = CoordStatusComboBox.getValue();
+        String instruction = CoordInstructionTextField.getText();
+        if (id.isEmpty()||depts.isEmpty()||deadline==null||status==null||instruction.isEmpty()) {
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please fill in Coordination ID, Participating Depts, Deadline, Status, and Coord. Instruction.");
+            alert.showAndWait();
+            return;
+        }
+        if (deadline.isBefore(LocalDate.now())) {
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("deadline cant be past");
+            alert.showAndWait();
+            return;
+        }
+        for (CoordinationItem c:coordList){
+            if (c.getCoordId().equalsIgnoreCase(id)) {
+                Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("id is already in the list");
+                alert.showAndWait();
+                return;
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void LoadRequestsButtonOA(ActionEvent actionEvent) {
+        if (delegatedList.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("no delegated requests found");
+            alert.showAndWait();
+            return;
+        }
+        String dept =DeptComboBox.getValue();
+        String decision=DecisionComboBox.getValue();
+        DelegatedTableView.getItems().clear();
+        for (DelegatedDecision d:delegatedList) {
+            boolean matchDept=(dept==null)||d.getDepartment().equalsIgnoreCase(dept);
+            boolean matchDecision=(decision==null)||d.getDecision().equalsIgnoreCase(decision);
+            if (matchDept &&matchDecision) {
+                DelegatedTableView.getItems().add(d);
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void RecConfirmReviewButtonOA(ActionEvent actionEvent) {
+        String id = RecIdTextField.getText().trim();
+        String dept = RecSourceDeptComboBox.getValue();
+        String summary = SummaryTextField.getText().trim();
+        String outcome = OutcomeComboBox.getValue();
+        String remarks = DGRemarksTextField.getText().trim();
+        if (id.isEmpty()||dept==null||summary.isEmpty()||outcome==null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill all the +");
+            alert.showAndWait();
+            return;
+        }
+        if ((outcome.equals("Returned for Clarification")||outcome.equals("Escalate to Governor"))&&remarks.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Remarks are required");
+            alert.showAndWait();
+            return;
+        }
+        for (OfficerRecommendation rec:recList) {
+            if (rec.getRecId().equalsIgnoreCase(id)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("recommendation id already exists");
+                alert.showAndWait();
+                return;
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void CompLoadDecisionsButtonOA(ActionEvent actionEvent) {
+        if (complianceList.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("no compliance decisions found");
+            alert.showAndWait();
+            return;
+        }
+        String dept=AssignedDeptComboBox.getValue();
+        String status=ComplianceStatusComboBox.getValue();
+        ComplianceTableView.getItems().clear();
+        for (ComplianceRecord c:complianceList) {
+            boolean matchDept=(dept==null)||c.getAssignedDept().equalsIgnoreCase(dept);
+            boolean matchStatus=(status==null)||c.getComplianceStatus().equalsIgnoreCase(status);
+            if (matchDept &&matchStatus){
+                ComplianceTableView.getItems().add(c);
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void IssueInstructionButtonOA(ActionEvent actionEvent) {
+        String id= InstructionIdTextField.getText();
+        String dept= SupDeptComboBox.getValue();
+        String priority= PriorityComboBox.getValue();
+        LocalDate dueDate =DueDatePicker.getValue();
+        String note =InstructionTextField.getText();
+        if (id.isEmpty() ||dept == null||priority==null||dueDate==null||note.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill all the req fields");
+            alert.showAndWait();
+            return;
+        }
+        if (dueDate.isBefore(LocalDate.now())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("due date cant be past");
+            alert.showAndWait();
+            return;
+        }
+        for (SupervisoryInstruction s: instructionList) {
+            if (s.getInstructionId().equalsIgnoreCase(id)){
+                Alert alert= new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("id is already in the list");
+                alert.showAndWait();
+                return;
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void DelegatedConfirmDecisionButtonOA(ActionEvent actionEvent) {
+        String id = RequestIdTextField.getText().trim();
+        String dept = DeptComboBox.getValue();
+        String details = DetailsTextField.getText().trim();
+        String decision = DecisionComboBox.getValue();
+        String remarks = DelegatedRemarksTextField.getText().trim();
+        if (id.isEmpty()||dept==null|| details.isEmpty() ||decision==null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill all the fields");
+            alert.showAndWait();
+            return;
+        }
+        if ((decision.equals("Rejected")||decision.equals("Returned")||decision.equals("Routed to Governor")) &&remarks.isEmpty()){
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Remarks are required");
+            alert.showAndWait();
+            return;
+        }
+        for (DelegatedDecision d:delegatedList) {
+            if (d.getRequestId().equalsIgnoreCase(id)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("this id is already in the list");
+                alert.showAndWait();
+                return;
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void SubmitEvalButtonOA(ActionEvent actionEvent) {
+        String id = PolicyIdTextField.getText().trim();
+        String period = g3PeriodComboBox.getValue();
+        String status = g3StatusComboBox.getValue();
+        String deviation = DeviationTextField.getText().trim();
+        String remarks = EvaluationRemarksTextField.getText().trim();
+        if (id.isEmpty()||period==null||status==null||remarks.isEmpty()){
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill all the req fields");
+            alert.showAndWait();
+            return;
+        }
+        if ((status.equals("Delayed")||status.equals("Deviation Flagged"))&&deviation.isEmpty()){
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Deviation Note is required");
+            alert.showAndWait();
+            return;
+        }
+        for (PolicyReview pr:policyReviewList){
+            if (pr.getPolicyId().equalsIgnoreCase(id) && pr.getReviewPeriod().equalsIgnoreCase(period)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("policy id and review period are already in the list");
+                alert.showAndWait();
+                return;
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void LoadDecisionButtonOA(ActionEvent actionEvent) {
+        if (policyReviewList.isEmpty()){
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("no policy reviews found");
+            alert.showAndWait();
+            return;
+        }
+        String period=g3PeriodComboBox.getValue();
+        String status= g3StatusComboBox.getValue();
+        PolicyTableView.getItems().clear();
+        for (PolicyReview pr:policyReviewList) {
+            boolean matchPeriod=(period == null)||pr.getReviewPeriod().equalsIgnoreCase(period);
+            boolean matchStatus=(status == null)||pr.getImplStatus().equalsIgnoreCase(status);
+            if (matchPeriod && matchStatus) {
+                PolicyTableView.getItems().add(pr);
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void SubmitReviewButtonOA(ActionEvent actionEvent) {
+        String id=ReportIdTextField.getText();
+        String dept=ReportDeptComboBox.getValue();
+        String period=ReportingPeriodComboBox.getValue();
+        String status=ReportStatusComboBox.getValue();
+        String remarks=ReportRemarksTextField.getText();
+        if (id.isEmpty()||dept==null||period==null||status==null||remarks.isEmpty()){
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill the required fields");
+            alert.showAndWait();
+            return;
+        }
+        for (DepartmentReport r :deptReportList) {
+            if (r.getReportId().equalsIgnoreCase(id)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("duplicate id found");
+                alert.showAndWait();
+                return;
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void EscalateGovernorButtonOA(ActionEvent actionEvent) {
+        String id = IssueIdTextField.getText().trim();
+        String dept = IssueSourceDeptComboBox.getValue();
+        String severity = SeverityComboBox.getValue();
+        String status = IssueStatusComboBox.getValue();
+        String assessment = AssessmentTextField.getText().trim();
+        if (id.isEmpty()||dept==null||severity==null||status== null ||assessment.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill all the fields");
+            alert.showAndWait();
+            return;
+        }
+        for (CriticalAlert c:issueList) {
+            if (c.getIncidentId().equalsIgnoreCase(id)) {
+                Alert alert= new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("issue id is already in the list");
+                alert.showAndWait();
+                return;
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void SaveComplianceButtonOA(ActionEvent actionEvent) {
+        String id = DecisionIdTextField.getText().trim();
+        String dept = AssignedDeptComboBox.getValue();
+        LocalDate dueDate = ComplianceDueDatePicker.getValue();
+        String status = ComplianceStatusComboBox.getValue();
+        String finding = FindingTextField.getText().trim();
+        if (id.isEmpty() || dept == null || dueDate == null || status == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fill all the req fields");
+            alert.showAndWait();
+            return;
+        }
+        if ((status.equals("Overdue")||status.equals("Breach Escalated"))&& finding.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("compliance Finding is required");
+            alert.showAndWait();
+            return;
+        }
+        for (ComplianceRecord c:complianceList) {
+            if (c.getDecisionId().equalsIgnoreCase(id)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("this id is already in the list");
+                alert.showAndWait();
+                return;
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void LoadRecButtonOA(ActionEvent actionEvent) {
+        if (recList.isEmpty()){
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("no officer recommendations found");
+            alert.showAndWait();
+            return;
+        }
+        String dept=RecSourceDeptComboBox.getValue();
+        String outcome=OutcomeComboBox.getValue();
+        RecTableView.getItems().clear();
+        for (OfficerRecommendation rec:recList) {
+            boolean matchDept =(dept==null) ||rec.getSourceDept().equalsIgnoreCase(dept);
+            boolean matchOutcome=(outcome==null)||rec.getReviewOutcome().equalsIgnoreCase(outcome);
+            if (matchDept && matchOutcome) {
+                RecTableView.getItems().add(rec);
+            }
+        }
     }
+
 }

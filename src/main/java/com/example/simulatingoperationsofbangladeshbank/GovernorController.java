@@ -192,14 +192,14 @@ public class GovernorController {
     private ComboBox<String> DecisionComboBox;
 
 
-    private ArrayList<PolicyProposal> proposalList = new ArrayList<>();
-    private ArrayList<StabilityIndicator> stabilityList = new ArrayList<>();
-    private ArrayList<MajorDecision> majorDecisionList = new ArrayList<>();
-    private ArrayList<InstitutionalReport> reportList = new ArrayList<>();
-    private ArrayList<RegulatoryDirective> directiveList = new ArrayList<>();
-    private ArrayList<DepartmentPerformance> performanceList = new ArrayList<>();
-    private ArrayList<CriticalAlert> alertList = new ArrayList<>();
-    private ArrayList<OperationalPlan> planList = new ArrayList<>();
+    ArrayList<PolicyProposal> proposalList=new ArrayList<>();
+    ArrayList<StabilityIndicator> stabilityList=new ArrayList<>();
+    ArrayList<MajorDecision> majorDecisionList=new ArrayList<>();
+    ArrayList<InstitutionalReport> reportList=new ArrayList<>();
+    ArrayList<RegulatoryDirective> directiveList =new ArrayList<>();
+    ArrayList<DepartmentPerformance> performanceList =new ArrayList<>();
+    ArrayList<CriticalAlert> alertList =new ArrayList<>();
+    ArrayList<OperationalPlan> planList =new ArrayList<>();
 
 
 
@@ -288,7 +288,6 @@ public class GovernorController {
 
     @javafx.fxml.FXML
     public void SaveReviewButtonOA(ActionEvent actionEvent) {
-
         String id = ReportIdTextField.getText();
         String period = g4PeriodComboBox.getValue();
         String version = g4ReportVersionTextField.getText();
@@ -404,17 +403,15 @@ public class GovernorController {
             return;
         }
         //effective date cant be in the past date
-
         if (decision.equals("Approved")&&effDate.isBefore(LocalDate.now())){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("effective Date cant be past date");
             alert.showAndWait();
             return;
         }
-
-        for (RegulatoryDirective d : directiveList) {
+        for (RegulatoryDirective d: directiveList) {
             if (d.getDirectiveId().equalsIgnoreCase(id)) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                Alert alert =new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("id already exists");
                 alert.showAndWait();
                 return;
@@ -425,17 +422,42 @@ public class GovernorController {
 
     @javafx.fxml.FXML
     public void LoadReportButtonOA(ActionEvent actionEvent) {
-        // Validation: Check if reportList is empty
         if (reportList.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("No institutional reports found.");
             alert.showAndWait();
             return;
         }
+        String decision=selectDecisionComboBox.getValue();
+        ProposalTableView.getItems().clear();
+
+        for (PolicyProposal p:proposalList) {
+            if (decision==null||p.getDecision().equalsIgnoreCase(decision)){
+                ProposalTableView.getItems().add(p);
+            }
+        }
+        String period=g4PeriodComboBox.getValue();
+        ReportTableView.getItems().clear();
+        for (InstitutionalReport r:reportList) {
+            if (period==null||r.getPeriod().equalsIgnoreCase(period)){
+                ReportTableView.getItems().add(r);
+            }
+        }
     }
 
     @javafx.fxml.FXML
     public void LoadOverviewButtonOA(ActionEvent actionEvent) {
+        String period = ReportingPeriodComboBox.getValue();
+        String dept = DepartmentComboBox.getValue();
+        g2StabilityTableView.getItems().clear();
+        for (StabilityIndicator s:stabilityList) {
+            boolean matchPeriod=(period==null)||s.getReportingPeriod().equalsIgnoreCase(period);
+            boolean matchDept =(dept==null)||s.getDepartment().equalsIgnoreCase(dept);
+            if (matchPeriod&&matchDept){
+                g2StabilityTableView.getItems().add(s);
+            }
+        }
+        StatusSummaryLabel.setText("Status: Loaded " + g2StabilityTableView.getItems().size() + " indicator(s)");
     }
 
     @javafx.fxml.FXML
@@ -447,7 +469,7 @@ public class GovernorController {
         String risk =RiskRatingComboBox.getValue();
         String direction= StrategicDirectionTextField.getText();
 
-        if (dept ==null||period==null||target.isEmpty()||actual.isEmpty()||risk == null||direction.isEmpty()) {
+        if (dept==null||period==null||target.isEmpty()||actual.isEmpty()||risk == null||direction.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("fill the req fields");
             alert.showAndWait();
@@ -472,6 +494,16 @@ public class GovernorController {
             alert.showAndWait();
             return;
         }
+        String dept=DeptComboBox.getValue();
+        String period=g6PeriodComboBox.getValue();
+        PerformanceTableView.getItems().clear();
+        for(DepartmentPerformance dp:performanceList){
+            boolean matchDept=(dept==null)||dp.getDepartment().equalsIgnoreCase(dept);
+            boolean matchPeriod =(period== null)||dp.getPeriod().equalsIgnoreCase(period);
+            if (matchDept&& matchPeriod){
+                PerformanceTableView.getItems().add(dp);
+            }
+        }
     }
 
     @javafx.fxml.FXML
@@ -493,7 +525,6 @@ public class GovernorController {
         String preparedBy=PreparedByTextField.getText();
         String decision=selectDecisionComboBox.getValue();
         String note =DecisonNoteTextField.getText();
-
         // empty req fields
         if (id.isEmpty()||title.isEmpty()||preparedBy.isEmpty()||decision == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -501,7 +532,6 @@ public class GovernorController {
             alert.showAndWait();
             return;
         }
-
         // decision need if rejected or return clicked
         if (decision.equals("Rejected")||decision.equals("Returned for Revision")&&note.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
