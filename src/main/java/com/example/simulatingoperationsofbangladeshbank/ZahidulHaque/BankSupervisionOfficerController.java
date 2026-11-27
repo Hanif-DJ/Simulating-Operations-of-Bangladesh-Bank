@@ -4,7 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class BankSupervisionOfficerController {
     @javafx.fxml.FXML
@@ -156,6 +160,16 @@ public class BankSupervisionOfficerController {
     @javafx.fxml.FXML
     private TableColumn<U4G6_CorrectiveAction, LocalDate> g6DueDateCol;
 
+    /*ArrayLists for loading objects from .bin files for U4G1 to U4G8*/
+    private ArrayList<U4G1_CommercialBank> bankList = new ArrayList<>();
+    private ArrayList<U4G2_InspectionSchedule> scheduleList  = new ArrayList<>();
+    private ArrayList<U4G3_InspectionFinding> findingList  = new ArrayList<>();
+    private ArrayList<U4G4_ComplianceRecord> complianceList  = new ArrayList<>();
+    private ArrayList<U4G5_BankingViolation> violationList  = new ArrayList<>();
+    private ArrayList<U4G6_CorrectiveAction> actionList  = new ArrayList<>();
+    private ArrayList<U4G7_SupervisionRecord> recordList  = new ArrayList<>();
+    private ArrayList<U4G1_CommercialBank> reportList  = new ArrayList<>();
+
     @javafx.fxml.FXML
     public void initialize() {
 
@@ -229,6 +243,8 @@ public class BankSupervisionOfficerController {
         g8PeriodCol.setCellValueFactory(new PropertyValueFactory<>("period"));
         g8StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 
+
+
     }
 
     @javafx.fxml.FXML
@@ -237,7 +253,48 @@ public class BankSupervisionOfficerController {
 
     @javafx.fxml.FXML
     public void handleG1RegisterBankButton(ActionEvent actionEvent) {
+        /*U4G1 RegisterBankButton*/
+        /*String bankId, String name, String registrationNo, String registrationStatus*/
+        U4G1_CommercialBank cb = new U4G1_CommercialBank(
+                g1BankIdTextField.getText(),
+                g1BankIdTextField.getText(),
+                g1RegNoTextField.getText(),
+                g1RegStatusComboBox.getValue()
+        );
+
+        File f = null;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            f = new File("U4G1_CommercialBank.bin");
+            if (f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new AppendableObjectOutputStream(fos);
+            } else {
+                fos = new FileOutputStream(f);
+                oos = new ObjectOutputStream(fos);
+            }
+            oos.writeObject(cb);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        loadBanks();
     }
+
+    private void loadBanks() {
+        bankList.clear();
+        g2BankIdComboBox.getItems().clear();
+        g7BankIdComboBox.getItems().clear();
+        g8BankIdComboBox.getItems().clear();
+
+}
 
     @javafx.fxml.FXML
     public void handleG5RecordViolationButton(ActionEvent actionEvent) {
