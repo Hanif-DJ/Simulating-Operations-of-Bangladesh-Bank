@@ -1,14 +1,231 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
-
+<AnchorPane prefHeight="620.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulatingoperationsofbangladeshbank.ZahidulHaque.BankSupervisionOfficerController">
+   <children>
+      <Text layoutX="14.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bangladesh Bank - Bank Supervision Officer (User 4)">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Text>
+       <TabPane layoutX="3.0" layoutY="41.0" prefHeight="570.0" prefWidth="762.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="1. Register Bank">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="30.0" layoutY="44.0" text="Bank ID:" wrappingWidth="71.236328125" />
+                        <Text layoutX="30.0" layoutY="84.0" text="Bank Name:" wrappingWidth="71.236328125" />
+                        <Text layoutX="30.0" layoutY="127.0" text="Registation No:" wrappingWidth="101.236328125" />
+                        <Text layoutX="30.0" layoutY="169.0" text="Registation Status:" wrappingWidth="101.236328125" />
+                        <ComboBox fx:id="g1RegStatusComboBox" layoutX="149.0" layoutY="152.0" prefWidth="150.0" promptText="Select Status" />
+                        <TextField fx:id="g1BankIdTextField" layoutX="149.0" layoutY="27.0" />
+                        <TextField fx:id="g1BankNameTextField" layoutX="149.0" layoutY="67.0" />
+                        <TextField fx:id="g1RegNoTextField" layoutX="149.0" layoutY="110.0" />
+                        <Button layoutX="149.0" layoutY="201.0" mnemonicParsing="false" onAction="#handleG1RegisterBankButton" text="Validate &amp; Register Bank" />
+                        <TableView fx:id="g1BankTableView" layoutX="3.0" layoutY="261.0" prefHeight="267.0" prefWidth="754.0">
+                          <columns>
+                            <TableColumn fx:id="g1BankIdCol" prefWidth="132.0" text="Bank ID" />
+                            <TableColumn fx:id="g1BankNameCol" prefWidth="142.0" text="Bank Name" />
+                              <TableColumn fx:id="g1RegNoCol" prefWidth="218.0" text="Registation No" />
+                              <TableColumn fx:id="g1RegStatusCol" prefWidth="261.0" text="Registation Status" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="2. Schedule Inspection">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="30.0" layoutY="44.0" text="Schedule ID:" wrappingWidth="71.236328125" />
+                        <Text layoutX="30.0" layoutY="84.0" text="Bank ID:" wrappingWidth="71.236328125" />
+                        <Text layoutX="30.0" layoutY="127.0" text="Inspection Date:" wrappingWidth="101.236328125" />
+                        <Text layoutX="30.0" layoutY="169.0" text="Team Members:" wrappingWidth="101.236328125" />
+                        <TextField fx:id="g2ScheduleIdTextField" layoutX="149.0" layoutY="27.0" />
+                        <TextField fx:id="g2TeamTextField" layoutX="150.0" layoutY="152.0" />
+                        <Button layoutX="149.0" layoutY="201.0" mnemonicParsing="false" onAction="#handleG2ScheduleInspectionButton" text="Schedule Inspection" />
+                        <TableView fx:id="g2ScheduleTableView" layoutX="3.0" layoutY="261.0" prefHeight="267.0" prefWidth="754.0">
+                           <columns>
+                              <TableColumn fx:id="g2ScheduleIdCol" prefWidth="132.0" text="Schedule ID" />
+                              <TableColumn fx:id="g2BankIdCol" prefWidth="141.0" text="Bank ID" />
+                              <TableColumn fx:id="g2DateCol" prefWidth="164.0" text="Inspection Date" />
+                              <TableColumn fx:id="g2TeamCol" prefWidth="153.0" text="Team" />
+                              <TableColumn fx:id="g2StatusCol" prefWidth="162.0" text="Status" />
+                           </columns>
+                        </TableView>
+                        <ComboBox fx:id="g2BankIdComboBox" layoutX="149.0" layoutY="67.0" prefWidth="150.0" promptText="Select Bank" />
+                        <DatePicker fx:id="g2InspectionDateDP" layoutX="150.0" layoutY="110.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="3. Enter Findings">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="24.0" layoutY="44.0" text="Finding ID:" wrappingWidth="88.236328125" />
+                        <Text layoutX="24.0" layoutY="84.0" text="Area:" wrappingWidth="101.236328125" />
+                        <TextField fx:id="g3FindingIdTextField" layoutX="149.0" layoutY="27.0" />
+                        <Button layoutX="149.0" layoutY="158.0" mnemonicParsing="false" onAction="#handleG3AddInspectionFindingButton" text="Add Inspection Finding" />
+                        <TableView fx:id="g3FindingTableView" layoutX="4.0" layoutY="228.0" prefHeight="267.0" prefWidth="754.0">
+                           <columns>
+                              <TableColumn fx:id="g3FindingIdCol" prefWidth="155.0" text="Finding ID" />
+                              <TableColumn fx:id="g3AreaCol" prefWidth="139.0" text="Area" />
+                              <TableColumn fx:id="g3CategoryCol" prefWidth="147.0" text="Category" />
+                              <TableColumn fx:id="g3SeverityCol" prefWidth="136.0" text="Severity" />
+                              <TableColumn fx:id="g3StatusCol" prefWidth="175.0" text="Status" />
+                           </columns>
+                        </TableView>
+                        <ComboBox fx:id="g3SeverityComboBox" layoutX="525.0" layoutY="27.0" prefWidth="150.0" promptText="Severity" />
+                        <Text layoutX="24.0" layoutY="125.0" text="Category:" wrappingWidth="101.236328125" />
+                        <ComboBox fx:id="g3CategoryComboBox" layoutX="149.0" layoutY="108.0" prefWidth="150.0" promptText="Category" />
+                        <TextField fx:id="g3AreaTextField" layoutX="149.0" layoutY="67.0" />
+                        <Text layoutX="407.0" layoutY="44.0" text="Severity:" wrappingWidth="101.236328125" />
+                        <ComboBox fx:id="g3StatusComboBox" layoutX="525.0" layoutY="67.0" prefWidth="150.0" promptText="Status" />
+                        <Text layoutX="407.0" layoutY="84.0" text="Status:" wrappingWidth="101.236328125" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="4. Monitor Compliance">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="22.0" layoutY="44.0" text="Compliance ID:" wrappingWidth="86.236328125" />
+                        <Text layoutX="22.0" layoutY="84.0" text="Period:" wrappingWidth="71.236328125" />
+                        <TextField fx:id="g4ComplianceIdTextField" layoutX="149.0" layoutY="27.0" />
+                        <Button layoutX="150.0" layoutY="187.0" mnemonicParsing="false" text="Save Compliance Record" />
+                        <TableView fx:id="g4ComplianceTableView" layoutX="4.0" layoutY="228.0" prefHeight="267.0" prefWidth="754.0">
+                           <columns>
+                              <TableColumn fx:id="g4ComplianceIdCol" prefWidth="168.0" text="Compliance ID" />
+                              <TableColumn fx:id="g4PeriodCol" prefWidth="167.0" text="Period" />
+                              <TableColumn fx:id="g4StatusCol" prefWidth="146.0" text="Status" />
+                              <TableColumn fx:id="g4NoteCol" prefWidth="272.0" text="Monitoring Note" />
+                           </columns>
+                        </TableView>
+                        <ComboBox fx:id="g4PeriodComboBox" layoutX="149.0" layoutY="67.0" prefWidth="150.0" promptText="Period" />
+                        <TextField fx:id="g4NoteTextField" layoutX="149.0" layoutY="153.0" prefHeight="25.0" prefWidth="282.0" />
+                        <Text layoutX="22.0" layoutY="128.0" text="Status:" wrappingWidth="101.236328125" />
+                        <ComboBox fx:id="g4StatusComboBox" layoutX="149.0" layoutY="111.0" prefWidth="150.0" promptText="Select Status" />
+                        <Text layoutX="22.0" layoutY="170.0" text="Monitoring Note:" wrappingWidth="101.236328125" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="5. Record Violation">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="22.0" layoutY="44.0" text="Violation ID:" wrappingWidth="86.236328125" />
+                        <Text layoutX="22.0" layoutY="84.0" text="Severity:" wrappingWidth="71.236328125" />
+                        <TextField fx:id="g5ViolationIdTextField" layoutX="149.0" layoutY="27.0" />
+                        <Button layoutX="150.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleG5RecordViolationButton" text="Record Banking Violation" />
+                        <TableView fx:id="g5ViolationTableView" layoutX="4.0" layoutY="228.0" prefHeight="267.0" prefWidth="754.0">
+                           <columns>
+                              <TableColumn fx:id="g5ViolationIdCol" prefWidth="168.0" text="Violation ID" />
+                              <TableColumn fx:id="g5SeverityCol" prefWidth="167.0" text="Severity" />
+                              <TableColumn fx:id="g5EvidenceCol" prefWidth="222.0" text="Evidence Ref" />
+                              <TableColumn fx:id="g5StatusCol" prefWidth="196.0" text="Status" />
+                           </columns>
+                        </TableView>
+                        <ComboBox fx:id="g5SeverityComboBox" layoutX="149.0" layoutY="67.0" prefWidth="150.0" promptText="Select Severity" />
+                        <TextField fx:id="g5EvidenceTextField" layoutX="149.0" layoutY="103.0" prefHeight="25.0" prefWidth="153.0" />
+                        <Text layoutX="22.0" layoutY="160.0" text="Status:" wrappingWidth="101.236328125" />
+                        <ComboBox fx:id="g5StatusComboBox" layoutX="149.0" layoutY="143.0" prefWidth="150.0" promptText="Status" />
+                        <Text layoutX="22.0" layoutY="120.0" text="Evidence Ref:" wrappingWidth="101.236328125" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="6. Corrective Action">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="22.0" layoutY="44.0" text="Action ID:" wrappingWidth="86.236328125" />
+                        <Text layoutX="448.0" layoutY="44.0" text="Status:" wrappingWidth="71.236328125" />
+                        <TextField fx:id="g6ActionIdTextField" layoutX="149.0" layoutY="27.0" />
+                        <Button layoutX="149.0" layoutY="159.0" mnemonicParsing="false" onAction="#handleG6CorrectiveActionButton" text="Add / Update Corrective Action" />
+                        <TableView fx:id="g6ActionTableView" layoutX="4.0" layoutY="228.0" prefHeight="267.0" prefWidth="754.0">
+                           <columns>
+                              <TableColumn fx:id="g6ActionIdCol" prefWidth="123.0" text="Action ID" />
+                              <TableColumn fx:id="g6ReqActionCol" prefWidth="140.0" text="Required Action" />
+                              <TableColumn fx:id="g6DueDateCol" prefWidth="158.0" text="Due Date" />
+                              <TableColumn fx:id="g6StatusCol" prefWidth="135.0" text="Status" />
+                              <TableColumn fx:id="g6EvidenceCol" prefWidth="196.0" text="Evidence Ref" />
+                           </columns>
+                        </TableView>
+                        <ComboBox fx:id="g6StatusComboBox" layoutX="556.0" layoutY="27.0" prefWidth="150.0" promptText="Select Status" />
+                        <TextField fx:id="g6EvidenceTextField" layoutX="556.0" layoutY="68.0" prefHeight="25.0" prefWidth="153.0" />
+                        <Text layoutX="21.0" layoutY="130.0" text="Due Date:" wrappingWidth="101.236328125" />
+                        <Text layoutX="448.0" layoutY="85.0" text="Evidence Ref:" wrappingWidth="101.236328125" />
+                        <TextField fx:id="g6ReqActionTextField" layoutX="149.0" layoutY="68.0" />
+                        <Text layoutX="18.0" layoutY="85.0" text="Required Action:" wrappingWidth="108.236328125" />
+                        <DatePicker fx:id="g6DueDateDP" layoutX="149.0" layoutY="113.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="7. Supervision Record">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="22.0" layoutY="44.0" text="Record ID:" wrappingWidth="86.236328125" />
+                        <Text layoutX="22.0" layoutY="89.0" text="Bank ID:" wrappingWidth="71.236328125" />
+                        <TextField fx:id="g7RecordIdTextField" layoutX="149.0" layoutY="27.0" />
+                        <Button layoutX="149.0" layoutY="203.0" mnemonicParsing="false" onAction="#handleG7UpdateSupervisionRecordButton" text="Update Supervision Record" />
+                        <TableView fx:id="g7SupervisionTableView" layoutY="236.0" prefHeight="271.0" prefWidth="762.0">
+                           <columns>
+                              <TableColumn fx:id="g7RecordIdCol" prefWidth="192.0" text="Record ID" />
+                              <TableColumn fx:id="g7BankIdCol" prefWidth="237.0" text="Bank ID" />
+                              <TableColumn fx:id="g7HistoryCol" prefWidth="324.0" text="History Note" />
+                           </columns>
+                        </TableView>
+                        <ComboBox fx:id="g7BankIdComboBox" layoutX="149.0" layoutY="72.0" prefWidth="150.0" promptText="Select Bank" />
+                        <Text layoutX="22.0" layoutY="131.0" text="History Note:" wrappingWidth="108.236328125" />
+                        <TextArea fx:id="g7HistoryTextArea" layoutX="149.0" layoutY="109.0" prefHeight="86.0" prefWidth="361.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="8. Bank Report">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="22.0" layoutY="44.0" text="Report ID:" wrappingWidth="86.236328125" />
+                        <Text layoutX="22.0" layoutY="89.0" text="Bank ID:" wrappingWidth="71.236328125" />
+                        <TextField fx:id="g8ReportIdTextField" layoutX="149.0" layoutY="27.0" />
+                        <Button layoutX="149.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleG8GenerateSupervisionReportButton" text="Generate Supervision Report" />
+                        <TableView fx:id="g8ReportTableView" layoutX="4.0" layoutY="219.0" prefHeight="267.0" prefWidth="754.0">
+                           <columns>
+                              <TableColumn fx:id="g8ReportIdCol" prefWidth="192.0" text="Record ID" />
+                              <TableColumn fx:id="g8BankIdCol" prefWidth="174.0" text="Bank ID" />
+                              <TableColumn fx:id="g8PeriodCol" prefWidth="174.0" text="Period" />
+                              <TableColumn fx:id="g8StatusCol" prefWidth="212.0" text="Status" />
+                           </columns>
+                        </TableView>
+                        <ComboBox fx:id="g8BankIdComboBox" layoutX="149.0" layoutY="72.0" prefWidth="150.0" promptText="Select Bank" />
+                        <ComboBox fx:id="g8PeriodComboBox" layoutX="149.0" layoutY="112.0" prefWidth="150.0" promptText="Select Period" />
+                        <Text layoutX="22.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Period:" wrappingWidth="96.13671875" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button layoutX="692.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleSignOutButton" text="Sign Out" />
+   </children>
 </AnchorPane>
