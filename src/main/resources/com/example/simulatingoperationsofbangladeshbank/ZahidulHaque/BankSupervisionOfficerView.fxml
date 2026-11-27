@@ -110,7 +110,7 @@
                         <Text layoutX="22.0" layoutY="44.0" text="Compliance ID:" wrappingWidth="86.236328125" />
                         <Text layoutX="22.0" layoutY="84.0" text="Period:" wrappingWidth="71.236328125" />
                         <TextField fx:id="g4ComplianceIdTextField" layoutX="149.0" layoutY="27.0" />
-                        <Button layoutX="150.0" layoutY="187.0" mnemonicParsing="false" text="Save Compliance Record" />
+                        <Button layoutX="150.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleG4ComplianceRecordButton" text="Save Compliance Record" />
                         <TableView fx:id="g4ComplianceTableView" layoutX="4.0" layoutY="228.0" prefHeight="267.0" prefWidth="754.0">
                            <columns>
                               <TableColumn fx:id="g4ComplianceIdCol" prefWidth="168.0" text="Compliance ID" />
