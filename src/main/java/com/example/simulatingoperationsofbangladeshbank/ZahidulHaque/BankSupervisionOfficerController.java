@@ -4,9 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -170,6 +168,7 @@ public class BankSupervisionOfficerController {
     private ArrayList<U4G7_SupervisionRecord> recordList  = new ArrayList<>();
     private ArrayList<U4G1_CommercialBank> reportList  = new ArrayList<>();
 
+
     @javafx.fxml.FXML
     public void initialize() {
 
@@ -293,6 +292,37 @@ public class BankSupervisionOfficerController {
         g2BankIdComboBox.getItems().clear();
         g7BankIdComboBox.getItems().clear();
         g8BankIdComboBox.getItems().clear();
+
+
+
+        File f = new File("U4G1_CommercialBank");
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            if (f.exists()) {
+                fis = new FileInputStream(f);
+                ois = new ObjectInputStream(fis);
+                while (true) {
+                    U4G1_CommercialBank cb = (U4G1_CommercialBank) ois.readObject();
+                    bankList.add(cb);
+                    g2BankIdComboBox.getItems().add(cb.getBankId());
+                    g7BankIdComboBox.getItems().add(cb.getBankId());
+                    g8BankIdComboBox.getItems().add(cb.getBankId());
+                }
+            }
+        } catch (Exception e) {
+            //
+        } finally {
+            try {
+                if (ois != null) ois.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        g1BankTableView.getItems().clear();
+        g1BankTableView.getItems().addAll(bankList);
+
 
 }
 
