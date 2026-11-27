@@ -1,14 +1,224 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
-
+<AnchorPane prefHeight="620.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulatingoperationsofbangladeshbank.ZahidulHaque.ExecutiveDirectorController">
+   <children>
+      <Text layoutX="14.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bangladesh Bank - Executive Director (User 3)">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Text>
+       <TabPane layoutX="1.0" layoutY="47.0" prefHeight="564.0" prefWidth="766.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="1. Manage Dept">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="14.0" layoutY="41.0" text="Department ID:" wrappingWidth="88.052734375" />
+                        <TextField fx:id="g1DeptIdTextField" layoutX="102.0" layoutY="24.0" />
+                        <Text layoutX="14.0" layoutY="82.0" text="Dept Name:" wrappingWidth="82.392578125" />
+                        <TextField fx:id="g1DeptNameTextField" layoutX="102.0" layoutY="65.0" />
+                        <Text layoutX="14.0" layoutY="121.0" text="Head ID:" wrappingWidth="82.462890625" />
+                        <TextField fx:id="g1HeadIdTextField" layoutX="102.0" layoutY="104.0" />
+                        <Text layoutX="14.0" layoutY="161.0" text="Status:" wrappingWidth="75.09765625" />
+                        <ComboBox fx:id="g1StatusComboBox" layoutX="102.0" layoutY="144.0" prefWidth="150.0" promptText="Select Status" />
+                        <Button layoutX="98.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleG1SaveButton" text="Save / Update Department" />
+                        <TableView fx:id="g1DeptTableView" layoutX="6.0" layoutY="250.0" prefHeight="265.0" prefWidth="758.0">
+                          <columns>
+                            <TableColumn fx:id="g1DeptIdCol" prefWidth="143.0" text="Department ID" />
+                            <TableColumn fx:id="g1DeptNameCol" prefWidth="204.0" text="Department Name" />
+                              <TableColumn fx:id="g1HeadIdCol" prefWidth="199.0" text="Head ID" />
+                              <TableColumn fx:id="g1StatusCol" prefWidth="211.0" text="Status" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="2. Assign Task">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="22.0" layoutY="46.0" text="Task ID:" wrappingWidth="64.9453125" />
+                        <TextField fx:id="g2TaskIdTextField" layoutX="97.0" layoutY="29.0" />
+                        <Text layoutX="20.0" layoutY="86.0" text="Task Title:" wrappingWidth="63.779296875" />
+                        <TextField fx:id="g2TitleTextField" layoutX="97.0" layoutY="69.0" />
+                        <Text layoutX="353.0" layoutY="46.0" text="Assign To (ID):" wrappingWidth="91.03125" />
+                        <TextField fx:id="g2AssignedToTextField" layoutX="472.0" layoutY="29.0" />
+                        <Text layoutX="20.0" layoutY="130.0" text="Priority:" wrappingWidth="54.3828125" />
+                        <ComboBox fx:id="g2PriorityComboBox" layoutX="97.0" layoutY="113.0" prefWidth="150.0" promptText="Priority" />
+                        <Text layoutX="353.0" layoutY="86.0" text="Due Date:" wrappingWidth="76.23046875" />
+                        <DatePicker fx:id="g2DueDateDP" layoutX="465.0" layoutY="69.0" />
+                        <Button layoutX="104.0" layoutY="156.0" mnemonicParsing="false" onAction="#handleG2ValidateAndAssignTaskButton" text="Validate &amp; Assign Task" />
+                        <TableView fx:id="g2TaskTableView" layoutX="-1.0" layoutY="213.0" prefHeight="302.0" prefWidth="766.0">
+                          <columns>
+                            <TableColumn fx:id="g2TaskIdCol" prefWidth="94.0" text="Task ID" />
+                            <TableColumn fx:id="g2TitleCol" prefWidth="113.0" text="Title" />
+                              <TableColumn fx:id="g2PriorityCol" prefWidth="117.0" text="Priority" />
+                              <TableColumn fx:id="g2AssignedToCol" prefWidth="136.0" text="Assigned To" />
+                              <TableColumn fx:id="g2DueDateCol" prefWidth="166.0" text="Due Date" />
+                              <TableColumn fx:id="g2StatusCol" prefWidth="138.0" text="Status" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="3. Review Submission">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="20.0" layoutY="46.0" text="Submission ID:" wrappingWidth="86.9453125" />
+                        <TextField fx:id="g3SubIdTextField" layoutX="116.0" layoutY="29.0" />
+                        <Text layoutX="20.0" layoutY="90.0" text="Submitter ID:" wrappingWidth="78.779296875" />
+                        <TextField fx:id="g3SubmitterIdTextField" layoutX="116.0" layoutY="73.0" />
+                        <Text layoutX="20.0" layoutY="130.0" text="Decision:" wrappingWidth="54.3828125" />
+                        <Button layoutX="144.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleG3ReviewButton" text="Submit Review" />
+                        <TableView fx:id="g3SubmissionTableView" layoutX="-1.0" layoutY="213.0" prefHeight="302.0" prefWidth="766.0">
+                           <columns>
+                              <TableColumn fx:id="g3SubIdCol" prefWidth="152.0" text="Submission ID" />
+                              <TableColumn fx:id="g3SubmitterIdCol" prefWidth="183.0" text="Submitter ID" />
+                              <TableColumn fx:id="g3AttachmentsCol" prefWidth="234.0" text="Attachments" />
+                              <TableColumn fx:id="g3StatusCol" prefWidth="196.0" text="Status" />
+                           </columns>
+                        </TableView>
+                        <ComboBox fx:id="g3StatusComboBox" layoutX="116.0" layoutY="113.0" prefWidth="150.0" promptText="Select Status" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="4. Routine Requests">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="14.0" layoutY="46.0" text="Request ID:" wrappingWidth="69.9453125" />
+                        <TextField fx:id="g4RequestIdTextField" layoutX="104.0" layoutY="29.0" />
+                        <Text layoutX="15.0" layoutY="86.0" text="Requester ID:" wrappingWidth="77.779296875" />
+                        <TextField fx:id="g4RequesterIdTextField" layoutX="104.0" layoutY="69.0" />
+                        <Button layoutX="30.0" layoutY="132.0" mnemonicParsing="false" onAction="#handleG4ApproveButton" text="Approve Request" />
+                        <TableView fx:id="g4RequestTableView" layoutX="-1.0" layoutY="213.0" prefHeight="302.0" prefWidth="766.0">
+                           <columns>
+                              <TableColumn fx:id="g4RequestIdCol" prefWidth="232.0" text="Request ID" />
+                              <TableColumn fx:id="g4RequesterIdCol" prefWidth="308.0" text="Requester ID" />
+                              <TableColumn fx:id="g4StatusCol" prefWidth="225.0" text="Status" />
+                           </columns>
+                        </TableView>
+                        <Button layoutX="165.0" layoutY="132.0" mnemonicParsing="false" onAction="#handleG4RejectButton" text="Reject Request" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="5. Monitor Completion">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="g5MonitorTableView" layoutY="187.0" prefHeight="251.0" prefWidth="766.0">
+                          <columns>
+                            <TableColumn fx:id="g5TaskIdCol" prefWidth="92.0" text="Task ID" />
+                            <TableColumn fx:id="g5TitleCol" prefWidth="168.0" text="Title" />
+                              <TableColumn fx:id="g5AssignedToCol" prefWidth="165.0" text="Assigned To" />
+                              <TableColumn fx:id="g5DueDateCol" prefWidth="175.0" text="Due Date" />
+                              <TableColumn fx:id="g5StatusCol" prefWidth="165.0" text="Status" />
+                          </columns>
+                        </TableView>
+                        <Text layoutX="26.0" layoutY="45.0" text="Filter Status:" wrappingWidth="76.5703125" />
+                        <ComboBox fx:id="g5FilterStatusComboBox" layoutX="103.0" layoutY="28.0" prefWidth="150.0" promptText="Select Status" />
+                        <Button layoutX="319.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleG5FilterAndLoadTaskButton" text="Filter &amp; Load Tasks" />
+                        <Button layoutX="499.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleG5VerifySelectedTaskCompletionButton" text="Verify Selected Task Completion" />
+                        <Label fx:id="g5SummaryLabel" layoutX="26.0" layoutY="84.0" prefHeight="63.0" prefWidth="673.0" text="Completion Summary:" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="6. Performance Records">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="g6PerformanceTableView" layoutY="259.0" prefHeight="251.0" prefWidth="766.0">
+                           <columns>
+                              <TableColumn fx:id="g6RecordIdCol" prefWidth="165.0" text="Record ID" />
+                              <TableColumn fx:id="g6PeriodCol" prefWidth="169.0" text="Period" />
+                              <TableColumn fx:id="g6MetricsCol" prefWidth="180.0" text="Metrics" />
+                              <TableColumn fx:id="g6EditedByCol" prefWidth="251.0" text="Edited By" />
+                           </columns>
+                        </TableView>
+                        <Text layoutX="26.0" layoutY="45.0" text="Record ID:" wrappingWidth="76.5703125" />
+                        <Button layoutX="104.0" layoutY="191.0" mnemonicParsing="false" onAction="#handleG6AddAndUpdateRecordButton" text="Add / Update Record" />
+                        <TextField fx:id="g6RecordIdTextField" layoutX="103.0" layoutY="28.0" />
+                        <Text layoutX="26.0" layoutY="86.0" text="Period:" wrappingWidth="46.7734375" />
+                        <ComboBox fx:id="g6PeriodComboBox" layoutX="103.0" layoutY="69.0" prefWidth="150.0" promptText="Select Period" />
+                        <TextField fx:id="g6MetricsTextField" layoutX="104.0" layoutY="109.0" />
+                        <TextField fx:id="g6EditedByTextField" layoutX="104.0" layoutY="149.0" />
+                        <Text layoutX="21.0" layoutY="126.0" text="Metrics:" wrappingWidth="56.7734375" />
+                        <Text layoutX="21.0" layoutY="166.0" text="Edited By:" wrappingWidth="56.7734375" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="7. Progress Report">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="g7ReportTableView" layoutY="259.0" prefHeight="251.0" prefWidth="766.0">
+                           <columns>
+                              <TableColumn fx:id="g7ReportIdCol" prefWidth="138.0" text="Report ID" />
+                              <TableColumn fx:id="g7PeriodCol" prefWidth="125.0" text="Period" />
+                              <TableColumn fx:id="g7CompletedCol" minWidth="0.0" prefWidth="167.0" text="Completed Count" />
+                              <TableColumn fx:id="g7PendingCol" minWidth="0.0" prefWidth="143.0" text="Pending Count" />
+                              <TableColumn fx:id="g7OverdueCol" minWidth="0.0" prefWidth="238.0" text="Overdue Count" />
+                           </columns>
+                        </TableView>
+                        <Text layoutX="11.0" layoutY="86.0" text="Completed:" wrappingWidth="76.5703125" />
+                        <Button layoutX="118.0" layoutY="201.0" mnemonicParsing="false" onAction="#handleG7GenerateProgressReportButton" text="Generate Progress Report" />
+                        <TextField fx:id="g7CompletedTextField" layoutX="120.0" layoutY="69.0" />
+                        <Text layoutX="14.0" layoutY="49.0" text="Report Period:" wrappingWidth="86.7734375" />
+                        <ComboBox fx:id="g7PeriodComboBox" layoutX="119.0" layoutY="32.0" prefWidth="150.0" promptText="Period" />
+                        <TextField fx:id="g7PendingTextField" layoutX="120.0" layoutY="109.0" />
+                        <TextField fx:id="g7OverdueTextField" layoutX="120.0" layoutY="149.0" />
+                        <Text layoutX="14.0" layoutY="126.0" text="Pending:" wrappingWidth="56.7734375" />
+                        <Text layoutX="14.0" layoutY="166.0" text="Overdue:" wrappingWidth="56.7734375" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="8. Forward to DG">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="g8ForwardTableView" layoutY="259.0" prefHeight="251.0" prefWidth="766.0">
+                           <columns>
+                              <TableColumn fx:id="g8ForwardIdCol" prefWidth="139.0" text="Forward ID" />
+                              <TableColumn fx:id="g8MatterIdCol" prefWidth="159.0" text="Matter ID" />
+                              <TableColumn fx:id="g8NoteCol" minWidth="0.0" prefWidth="278.0" text="Note" />
+                              <TableColumn fx:id="g8SentAtCol" minWidth="0.0" prefWidth="189.0" text="Sent At" />
+                           </columns>
+                        </TableView>
+                        <Text layoutX="32.0" layoutY="46.0" text="Forward ID:" wrappingWidth="76.5703125" />
+                        <Button layoutX="161.0" layoutY="210.0" mnemonicParsing="false" onAction="#handleG8ForwardButton" text="Forward to Deputy Governor" />
+                        <TextField fx:id="g8ForwardIdTextField" layoutX="163.0" layoutY="29.0" />
+                        <TextField fx:id="g8MatterIdTextField" layoutX="163.0" layoutY="78.0" />
+                        <Text layoutX="32.0" layoutY="95.0" text="Matter ID:" wrappingWidth="56.7734375" />
+                        <Text layoutX="32.0" layoutY="148.0" text="Note:" wrappingWidth="56.7734375" />
+                        <TextArea fx:id="g8NoteTextArea" layoutX="163.0" layoutY="112.0" prefHeight="81.0" prefWidth="375.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button layoutX="686.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleSignOutButton" text="Sign Out" />
+   </children>
 </AnchorPane>
