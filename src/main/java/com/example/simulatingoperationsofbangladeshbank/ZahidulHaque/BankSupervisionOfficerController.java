@@ -159,6 +159,8 @@ public class BankSupervisionOfficerController {
     private TableColumn<U4G6_CorrectiveAction, LocalDate> g6DueDateCol;
     @javafx.fxml.FXML
     private ComboBox<String> g2StatusComboBox;
+    @javafx.fxml.FXML
+    private ComboBox<String> g8StatusComboBox;
 
     /*ArrayLists for loading objects from .bin files for U4G1 to U4G8*/
     private ArrayList<U4G1_CommercialBank> bankList = new ArrayList<>();
@@ -168,7 +170,7 @@ public class BankSupervisionOfficerController {
     private ArrayList<U4G5_BankingViolation> violationList  = new ArrayList<>();
     private ArrayList<U4G6_CorrectiveAction> actionList  = new ArrayList<>();
     private ArrayList<U4G7_SupervisionRecord> recordList  = new ArrayList<>();
-    private ArrayList<U4G1_CommercialBank> reportList  = new ArrayList<>();
+    private ArrayList<U4G8_SupervisionReport> reportList  = new ArrayList<>();
 
 
 
@@ -186,6 +188,7 @@ public class BankSupervisionOfficerController {
         g5SeverityComboBox.getItems().addAll("Minor", "Major", "Severe");
         g5StatusComboBox.getItems().addAll("Reported", "Penalty Issued", "Resolved");
         g6StatusComboBox.getItems().addAll("Assigned", "In Progress", "Verified");
+        g8StatusComboBox.getItems().addAll("In Progress", "Completed", "Canceled", "Postponed");
         g8PeriodComboBox.getItems().addAll("Q1-2026", "Q2-2026", "Q3-2026", "Q4-2026");
 
         /*U4G1_CommercialBank: String bankId, String name, String registrationNo,
@@ -392,10 +395,133 @@ public class BankSupervisionOfficerController {
 
     @javafx.fxml.FXML
     public void handleG5RecordViolationButton(ActionEvent actionEvent) {
+        /*U4G5 RecordViolationButton*/
+        /*String violationId, String severity, String evidenceRef, String status*/
+        U4G5_BankingViolation v = new U4G5_BankingViolation(
+                g5ViolationIdTextField.getText(),
+                g5SeverityComboBox.getValue(),
+                g5EvidenceTextField.getText(),
+                g5StatusComboBox.getValue()
+        );
+        File f = null;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            f = new File("U4G5_BankingViolation.bin");
+            if (f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new AppendableObjectOutputStream(fos);
+            } else {
+                fos = new FileOutputStream(f);
+                oos = new ObjectOutputStream(fos);
+            }
+            oos.writeObject(v);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        loadViolations();
+    }
+    private void loadViolations() {
+        violationList.clear();
+        File f = new File("U4G5_BankingViolation.bin");
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            if (f.exists()) {
+                fis = new FileInputStream(f);
+                ois = new ObjectInputStream(fis);
+                while(true) {
+                    U4G5_BankingViolation v = (U4G5_BankingViolation) ois.readObject();
+                    violationList.add(v);
+                }
+            }
+        } catch (Exception e) {
+            //
+        } finally {
+            try {
+                if (ois != null) ois.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        g5ViolationTableView.getItems().clear();
+        g5ViolationTableView.getItems().addAll(violationList);
     }
 
     @javafx.fxml.FXML
     public void handleG6CorrectiveActionButton(ActionEvent actionEvent) {
+        /*U4G6 CorrectiveActionButton*/
+        /*String actionId, String requiredAction, LocalDate dueDate,
+         String status, String evidenceRef*/
+
+        U4G6_CorrectiveAction a = new U4G6_CorrectiveAction(
+                g6ActionIdTextField.getText(),
+                g6ReqActionTextField.getText(),
+                g6DueDateDP.getValue(),
+                g6StatusComboBox.getValue(),
+                g6EvidenceTextField.getText()
+        );
+
+        File f = null;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            f = new File("U4G6_CorrectiveAction.bin");
+            if (f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new AppendableObjectOutputStream(fos);
+            } else {
+                fos = new FileOutputStream(f);
+                oos = new ObjectOutputStream(fos);
+            }
+            oos.writeObject(a);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        loadCorrectiveActions();
+    }
+
+    private void loadCorrectiveActions() {
+        actionList.clear();
+        File f = new File("U4G6_CorrectiveAction.bin");
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            if (f.exists()) {
+                fis = new FileInputStream(f);
+                ois = new ObjectInputStream(fis);
+                while(true) {
+                    U4G6_CorrectiveAction a = (U4G6_CorrectiveAction) ois.readObject();
+                    actionList.add(a);
+                }
+            }
+        } catch (Exception e) {
+            //
+        } finally {
+            try {
+                if (ois != null) ois.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        g6ActionTableView.getItems().clear();
+        g6ActionTableView.getItems().addAll(actionList);
     }
 
     @javafx.fxml.FXML
@@ -404,17 +530,258 @@ public class BankSupervisionOfficerController {
 
     @javafx.fxml.FXML
     public void handleG7UpdateSupervisionRecordButton(ActionEvent actionEvent) {
+        /*U4G7 UpdateSupervisionRecordButton*/
+        /*String recordId, String bankId, String history*/
+        U4G7_SupervisionRecord r = new U4G7_SupervisionRecord(
+                g7RecordIdTextField.getText(),
+                g7BankIdComboBox.getValue(),
+                g7HistoryTextArea.getText()
+        );
+
+        File f = null;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            f = new File("U4G7_SupervisionRecord.bin");
+            if (f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new AppendableObjectOutputStream(fos);
+            } else {
+                fos = new FileOutputStream(f);
+                oos = new ObjectOutputStream(fos);
+            }
+            oos.writeObject(r);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        loadSupervisionRecords();
+    }
+
+    private void loadSupervisionRecords() {
+        recordList.clear();
+        File f = new File("U4G7_SupervisionRecord.bin");
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            if (f.exists()) {
+                fis = new FileInputStream(f);
+                ois = new ObjectInputStream(fis);
+                while(true) {
+                    U4G7_SupervisionRecord r = (U4G7_SupervisionRecord) ois.readObject();
+                    recordList.add(r);
+                }
+            }
+        } catch (Exception e) {
+            //
+        } finally {
+            try {
+                if (ois != null) ois.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        g7SupervisionTableView.getItems().clear();
+        g7SupervisionTableView.getItems().addAll(recordList);
     }
 
     @javafx.fxml.FXML
     public void handleG8GenerateSupervisionReportButton(ActionEvent actionEvent) {
+        /*U4G8 GenerateSupervisionReportButton*/
+        /*String reportId, String bankId, String period, String status*/
+        U4G8_SupervisionReport r = new U4G8_SupervisionReport(
+                g8ReportIdTextField.getText(),
+                g8BankIdComboBox.getValue(),
+                g8PeriodComboBox.getValue(),
+                g8StatusComboBox.getValue()
+        );
+
+        File f = null;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            f = new File("U4G8_SupervisionReport.bin");
+            if (f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new AppendableObjectOutputStream(fos);
+            } else {
+                fos = new FileOutputStream(f);
+                oos = new ObjectOutputStream(fos);
+            }
+            oos.writeObject(r);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        loadSupervisionReports();
+    }
+
+    private void loadSupervisionReports() {
+        reportList.clear();
+        File f = new File("U4G8_SupervisionReport.bin");
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            if (f.exists()) {
+                fis = new FileInputStream(f);
+                ois = new ObjectInputStream(fis);
+                while(true) {
+                    U4G8_SupervisionReport r = (U4G8_SupervisionReport) ois.readObject();
+                    reportList.add(r);
+                }
+            }
+        } catch (Exception e) {
+            //
+        } finally {
+            try {
+                if (ois != null) ois.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        g8ReportTableView.getItems().clear();
+        g8ReportTableView.getItems().addAll(reportList);
     }
 
     @javafx.fxml.FXML
     public void handleG3AddInspectionFindingButton(ActionEvent actionEvent) {
+        /*U4G3 AddInspectionFindingButton*/
+        /*String findingId, String area, String category, String severity, String status*/
+        U4G3_InspectionFinding finding = new U4G3_InspectionFinding(
+                g3FindingIdTextField.getText(),
+                g3AreaTextField.getText(),
+                g3CategoryComboBox.getValue(),
+                g3SeverityComboBox.getValue(),
+                g3StatusComboBox.getValue()
+        );
+
+        File f = null;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            f = new File("U4G3_InspectionFinding.bin");
+            if (f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new AppendableObjectOutputStream(fos);
+            } else {
+                fos = new FileOutputStream(f);
+                oos = new ObjectOutputStream(fos);
+            }
+            oos.writeObject(finding);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        loadFindings();
+    }
+
+    private void loadFindings(){
+        findingList.clear();
+        File f = new File("U4G3_InspectionFinding.bin");
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            if (f.exists()) {
+                fis = new FileInputStream(f);
+                ois = new ObjectInputStream(fis);
+                while(true) {
+                    U4G3_InspectionFinding finding = (U4G3_InspectionFinding) ois.readObject();
+                    findingList.add(finding);
+                }
+            }
+        } catch (Exception e) {
+            //
+        } finally {
+            try {
+                if (ois != null) ois.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        g3FindingTableView.getItems().clear();
+        g3FindingTableView.getItems().addAll(findingList);
     }
 
     @javafx.fxml.FXML
     public void handleG4ComplianceRecordButton(ActionEvent actionEvent) {
+        /*U4G4_ComplianceRecordButton*/
+        /*String complianceId, String period, String status, String monitoringNote*/
+        U4G4_ComplianceRecord cr = new U4G4_ComplianceRecord(
+                g4ComplianceIdTextField.getText(),
+                g4PeriodComboBox.getValue(),
+                g4StatusComboBox.getValue(),
+                g4NoteTextField.getText()
+        );
+        File f = null;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            f = new File("U4G4_ComplianceRecord.bin");
+            if (f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new AppendableObjectOutputStream(fos);
+            } else {
+                fos = new FileOutputStream(f);
+                oos = new ObjectOutputStream(fos);
+            }
+            oos.writeObject(cr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        loadComplianceRecords();
+
+    }
+    private void loadComplianceRecords() {
+        complianceList.clear();
+        File f = new File("U4G4_ComplianceRecord.bin");
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            if (f.exists()) {
+                fis = new FileInputStream(f);
+                ois = new ObjectInputStream(fis);
+                while(true) {
+                    U4G4_ComplianceRecord cr = (U4G4_ComplianceRecord) ois.readObject();
+                    complianceList.add(cr);
+                }
+            }
+        } catch (Exception e) {
+            //
+        } finally {
+            try {
+                if (ois != null) ois.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        g4ComplianceTableView.getItems().clear();
+        g4ComplianceTableView.getItems().addAll(complianceList);
     }
 }
