@@ -2,11 +2,11 @@ package com.example.simulatingoperationsofbangladeshbank.ZahidulHaque;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
 
-public class ExecutiveDirectorController
-{
+public class ExecutiveDirectorController {
     @javafx.fxml.FXML
     private TableColumn<U3G3_WorkSubmission, String> g3SubIdCol;
     @javafx.fxml.FXML
@@ -150,6 +150,74 @@ public class ExecutiveDirectorController
 
     @javafx.fxml.FXML
     public void initialize() {
+
+        /*U3G1_Department to U3G8_SupervisionReport for all ComboBox & Filtering items*/
+        g1StatusComboBox.getItems().addAll("Active", "Inactive");
+        g2PriorityComboBox.getItems().addAll("High", "Medium", "Low");
+        g3StatusComboBox.getItems().addAll("Approved", "Needs Revision", "Rejected");
+        g5FilterStatusComboBox.getItems().addAll("All", "Pending", "Completed");
+        g6PeriodComboBox.getItems().addAll("Q1-2026", "Q2-2026", "Q3-2026", "Q4-2026");
+        g7PeriodComboBox.getItems().addAll("Q1-2026", "Q2-2026", "Q3-2026", "Q4-2026");
+
+        /*U3G1_Department: String departmentId, String name, String headId, String status*/
+        g1DeptIdCol.setCellValueFactory(new PropertyValueFactory<>("departmentId"));
+        g1DeptNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        g1HeadIdCol.setCellValueFactory(new PropertyValueFactory<>("headId"));
+        g1StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        /*U3G2_Task: String taskId, String title, String priority,
+         String assignedTo, LocalDate dueDate, String status*/
+        g2TaskIdCol.setCellValueFactory(new PropertyValueFactory<>("taskId"));
+        g2TitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        g2PriorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
+        g2AssignedToCol.setCellValueFactory(new PropertyValueFactory<>("assignedTo"));
+        g2DueDateCol.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+        g2StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        /*U3G3_WorkSubmission: String submissionId, String submitterId,
+         String attachments, String status*/
+        g3SubIdCol.setCellValueFactory(new PropertyValueFactory<>("submissionId"));
+        g3SubmitterIdCol.setCellValueFactory(new PropertyValueFactory<>("submitterId"));
+        g3AttachmentsCol.setCellValueFactory(new PropertyValueFactory<>("attachments"));
+        g3StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        /*U3G4_RoutineRequest: String requestId, String requesterId, String status*/
+        g4RequestIdCol.setCellValueFactory(new PropertyValueFactory<>("requestId"));
+        g4RequesterIdCol.setCellValueFactory(new PropertyValueFactory<>("requesterId"));
+        g4StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        /*U3G5_TaskCompletion: String taskId, String title, String assignedTo,
+         LocalDate dueDate, String status
+         */
+        g5TaskIdCol.setCellValueFactory(new PropertyValueFactory<>("taskId"));
+        g5TitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        g5AssignedToCol.setCellValueFactory(new PropertyValueFactory<>("assignedTo"));
+        g5DueDateCol.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+        g5StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        /*U3G6_PerformanceRecord: String recordId, String period, String metrics, String editedBy*/
+        g6RecordIdCol.setCellValueFactory(new PropertyValueFactory<>("recordId"));
+        g6PeriodCol.setCellValueFactory(new PropertyValueFactory<>("period"));
+        g6MetricsCol.setCellValueFactory(new PropertyValueFactory<>("metrics"));
+        g6EditedByCol.setCellValueFactory(new PropertyValueFactory<>("editedBy"));
+
+        /*U3G7_DepartmentProgress: String reportId, String period, int completedCount,
+         int pendingCount, int overdueCount
+         */
+        g7ReportIdCol.setCellValueFactory(new PropertyValueFactory<>("reportId"));
+        g7PeriodCol.setCellValueFactory(new PropertyValueFactory<>("period"));
+        g7CompletedCol.setCellValueFactory(new PropertyValueFactory<>("completedCount"));
+        g7PendingCol.setCellValueFactory(new PropertyValueFactory<>("pendingCount"));
+        g7OverdueCol.setCellValueFactory(new PropertyValueFactory<>("overdueCount"));
+
+        /*U3G8_ForwardingRecord: String forwardId, String matterId, String note,
+         String sentAt*/
+        g8ForwardIdCol.setCellValueFactory(new PropertyValueFactory<>("forwardId"));
+        g8MatterIdCol.setCellValueFactory(new PropertyValueFactory<>("matterId"));
+        g8NoteCol.setCellValueFactory(new PropertyValueFactory<>("note"));
+        g8SentAtCol.setCellValueFactory(new PropertyValueFactory<>("sentAt"));
+
+
 
 
 
