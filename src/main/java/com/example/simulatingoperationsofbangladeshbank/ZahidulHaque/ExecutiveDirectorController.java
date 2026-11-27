@@ -151,7 +151,7 @@ public class ExecutiveDirectorController {
     @javafx.fxml.FXML
     public void initialize() {
 
-        /*U3G1_Department to U3G8_SupervisionReport for all ComboBox & Filtering items*/
+        /*U3G1_Department to U3G8_ForwardingRecord for all ComboBox & Filtering items*/
         g1StatusComboBox.getItems().addAll("Active", "Inactive");
         g2PriorityComboBox.getItems().addAll("High", "Medium", "Low");
         g3StatusComboBox.getItems().addAll("Approved", "Needs Revision", "Rejected");
