@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ExecutiveDirectorController {
     @javafx.fxml.FXML
@@ -148,6 +149,15 @@ public class ExecutiveDirectorController {
     @javafx.fxml.FXML
     private TableColumn<U3G8_ForwardingRecord, String> g8MatterIdCol;
 
+    /*ArrayLists for loading objects from .bin files for U3G1 to U3G8*/
+    private ArrayList<U3G1_Department> deptList = new ArrayList<>();
+    private ArrayList<U3G2_Task> taskList = new ArrayList<>();
+    private ArrayList<U3G3_WorkSubmission> subList = new ArrayList<>();
+    private ArrayList<U3G4_RoutineRequest> reqList = new ArrayList<>();
+    private ArrayList<U3G5_TaskCompletion> completionList = new ArrayList<>();
+    private ArrayList<U3G6_PerformanceRecord> perfmList = new ArrayList<>();
+    private ArrayList<U3G7_DepartmentProgressReport> reportList = new ArrayList<>();
+    private ArrayList<U3G8_ForwardingRecord> forwardList = new ArrayList<>();
 
 
     @javafx.fxml.FXML
@@ -219,10 +229,15 @@ public class ExecutiveDirectorController {
         g8NoteCol.setCellValueFactory(new PropertyValueFactory<>("note"));
         g8SentAtCol.setCellValueFactory(new PropertyValueFactory<>("sentAt"));
 
-
-
-
-
+        /*
+        loadDepartments;
+        loadTask;
+        loadSubmissions;
+        loadRequests;
+        loadCompletions;
+        loadPerformanceRecords;
+        loadProgressReports;
+        loadForwardingRecords; */
     }
 
     @javafx.fxml.FXML
@@ -243,6 +258,9 @@ public class ExecutiveDirectorController {
 
     @javafx.fxml.FXML
     public void handleG1SaveButton(ActionEvent actionEvent) {
+        /*U3G1 SaveButton*/
+        /*String departmentId, String name, String headId, String status*/
+
     }
 
     @javafx.fxml.FXML
