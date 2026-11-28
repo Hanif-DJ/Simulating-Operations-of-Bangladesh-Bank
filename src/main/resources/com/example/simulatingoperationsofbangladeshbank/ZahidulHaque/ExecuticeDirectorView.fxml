@@ -73,6 +73,8 @@
                               <TableColumn fx:id="g2StatusCol" prefWidth="138.0" text="Status" />
                           </columns>
                         </TableView>
+                        <ComboBox fx:id="g2StatusComboBox" layoutX="465.0" layoutY="113.0" prefWidth="150.0" promptText="Status" />
+                        <Text layoutX="356.0" layoutY="130.0" text="Status:" wrappingWidth="54.3828125" />
                      </children>
                   </AnchorPane>
             </content>
