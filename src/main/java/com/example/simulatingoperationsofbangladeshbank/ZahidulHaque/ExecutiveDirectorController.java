@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -148,6 +149,8 @@ public class ExecutiveDirectorController {
     private TableColumn<U3G6_PerformanceRecord, String> g6MetricsCol;
     @javafx.fxml.FXML
     private TableColumn<U3G8_ForwardingRecord, String> g8MatterIdCol;
+    @javafx.fxml.FXML
+    private ComboBox<String> g2StatusComboBox;
 
     /*ArrayLists for loading objects from .bin files for U3G1 to U3G8*/
     private ArrayList<U3G1_Department> deptList = new ArrayList<>();
@@ -160,12 +163,14 @@ public class ExecutiveDirectorController {
     private ArrayList<U3G8_ForwardingRecord> forwardList = new ArrayList<>();
 
 
+
     @javafx.fxml.FXML
     public void initialize() {
 
         /*U3G1_Department to U3G8_ForwardingRecord for all ComboBox & Filtering items*/
         g1StatusComboBox.getItems().addAll("Active", "Inactive");
         g2PriorityComboBox.getItems().addAll("High", "Medium", "Low");
+        g2StatusComboBox.getItems().addAll("Pending", "Completed", "On Progress");
         g3StatusComboBox.getItems().addAll("Approved", "Needs Revision", "Rejected");
         g5FilterStatusComboBox.getItems().addAll("All", "Pending", "Completed");
         g6PeriodComboBox.getItems().addAll("Q1-2026", "Q2-2026", "Q3-2026", "Q4-2026");
@@ -229,19 +234,81 @@ public class ExecutiveDirectorController {
         g8NoteCol.setCellValueFactory(new PropertyValueFactory<>("note"));
         g8SentAtCol.setCellValueFactory(new PropertyValueFactory<>("sentAt"));
 
-        /*
-        loadDepartments;
-        loadTask;
-        loadSubmissions;
-        loadRequests;
-        loadCompletions;
-        loadPerformanceRecords;
-        loadProgressReports;
-        loadForwardingRecords; */
+
+        loadDepartments();
+        loadTasks();
+        /*loadSubmissions();
+        loadRequests();
+        loadCompletions();
+        loadPerformanceRecords();
+        loadProgressReports();
+        loadForwardingRecords();*/
     }
 
     @javafx.fxml.FXML
     public void handleG2ValidateAndAssignTaskButton(ActionEvent actionEvent) {
+        /*U3G2 AssignTaskButton*/
+        /*String taskId, String title, String priority, String assignedTo,
+                LocalDate dueDate, String status*/
+        U3G2_Task t = new U3G2_Task(
+                g2TaskIdTextField.getText(),
+                g2TitleTextField.getText(),
+                g2PriorityComboBox.getValue(),
+                g2AssignedToTextField.getText(),
+                g2DueDateDP.getValue(),
+                g2StatusComboBox.getValue()
+        );
+
+        File f = null;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            f = new File("U3G2_Task.bin");
+            if (f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new AppendableObjectOutputStream(fos);
+            } else {
+                fos = new FileOutputStream(f);
+                oos = new ObjectOutputStream(fos);
+            }
+            oos.writeObject(t);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        loadTasks();
+    }
+
+    private void loadTasks() {
+        taskList.clear();
+        File f = new File("U3G2_Task.bin");
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            if (f.exists()) {
+                fis = new FileInputStream(f);
+                ois = new ObjectInputStream(fis);
+                while (true) {
+                    U3G2_Task t = (U3G2_Task) ois.readObject();
+                    taskList.add(t);
+                }
+            }
+        } catch (Exception e) {
+            //
+        } finally {
+            try {
+                if (ois != null) ois.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        g2TaskTableView.getItems().clear();
+        g2TaskTableView.getItems().addAll(taskList);
     }
 
     @javafx.fxml.FXML
@@ -260,7 +327,63 @@ public class ExecutiveDirectorController {
     public void handleG1SaveButton(ActionEvent actionEvent) {
         /*U3G1 SaveButton*/
         /*String departmentId, String name, String headId, String status*/
+        U3G1_Department d = new U3G1_Department(
+                g1DeptIdTextField.getText(),
+                g1DeptNameTextField.getText(),
+                g1HeadIdTextField.getText(),
+                g1StatusComboBox.getValue()
+        );
 
+        File f = null;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            f = new File("U3G1_Department.bin");
+            if (f.exists()) {
+                fos = new FileOutputStream(f, true);
+                oos = new AppendableObjectOutputStream(fos);
+            } else {
+                fos = new FileOutputStream(f);
+                oos = new ObjectOutputStream(fos);
+            }
+            oos.writeObject(d);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        loadDepartments();
+    }
+
+    private void loadDepartments() {
+        deptList.clear();
+        File f = new File("U3G1_Department.bin");
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            if (f.exists()) {
+                fis = new FileInputStream(f);
+                ois = new ObjectInputStream(fis);
+                while (true) {
+                    U3G1_Department d = (U3G1_Department) ois.readObject();
+                    deptList.add(d);
+                }
+            }
+        } catch (Exception e) {
+            //
+        } finally {
+            try {
+                if (ois != null) ois.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        g1DeptTableView.getItems().clear();
+        g1DeptTableView.getItems().addAll(deptList);
     }
 
     @javafx.fxml.FXML
