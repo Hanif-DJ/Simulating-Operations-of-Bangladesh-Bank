@@ -173,7 +173,6 @@ public class BankSupervisionOfficerController {
     private ArrayList<U4G8_SupervisionReport> reportList  = new ArrayList<>();
 
 
-
     @javafx.fxml.FXML
     public void initialize() {
 
@@ -249,8 +248,14 @@ public class BankSupervisionOfficerController {
         g8PeriodCol.setCellValueFactory(new PropertyValueFactory<>("period"));
         g8StatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-
-
+        loadBanks();
+        loadSchedules();
+        loadFindings();
+        loadComplianceRecords();
+        loadViolations();
+        loadCorrectiveActions();
+        loadSupervisionRecords();
+        loadSupervisionReports();
     }
 
     @javafx.fxml.FXML
@@ -287,7 +292,6 @@ public class BankSupervisionOfficerController {
                 e.printStackTrace();
             }
         }
-
         loadSchedules();
     }
 
@@ -352,7 +356,6 @@ public class BankSupervisionOfficerController {
                 e.printStackTrace();
             }
         }
-
         loadBanks();
     }
 
@@ -425,7 +428,6 @@ public class BankSupervisionOfficerController {
                 e.printStackTrace();
             }
         }
-
         loadViolations();
     }
     private void loadViolations() {
@@ -492,7 +494,6 @@ public class BankSupervisionOfficerController {
                 e.printStackTrace();
             }
         }
-
         loadCorrectiveActions();
     }
 
@@ -560,7 +561,6 @@ public class BankSupervisionOfficerController {
                 e.printStackTrace();
             }
         }
-
         loadSupervisionRecords();
     }
 
@@ -625,7 +625,6 @@ public class BankSupervisionOfficerController {
                 e.printStackTrace();
             }
         }
-
         loadSupervisionReports();
     }
 
@@ -691,7 +690,6 @@ public class BankSupervisionOfficerController {
                 e.printStackTrace();
             }
         }
-
         loadFindings();
     }
 
@@ -756,7 +754,6 @@ public class BankSupervisionOfficerController {
             }
         }
         loadComplianceRecords();
-
     }
     private void loadComplianceRecords() {
         complianceList.clear();
