@@ -1,14 +1,301 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
-
+<AnchorPane fx:id="user6RootAnchorPane" prefHeight="620.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulatingoperationsofbangladeshbank.towfiqur.CurrencyManagementOfficerController">
+   <children>
+      <Text layoutX="75.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bangladesh Bank -  Currency Management Officer (User 6)">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Text>
+      <TabPane layoutX="-2.0" layoutY="98.0" prefHeight="522.0" prefWidth="780.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="user6Goal1Tab" text="1. Currency Issue">
+            <content>
+              <AnchorPane fx:id="user6Goal1AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="46.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Issue Id :" />
+                        <Text layoutX="41.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Auth Instruction :" />
+                        <Text layoutX="42.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denomination :" />
+                        <Text layoutX="42.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Series :" />
+                        <Text layoutX="42.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity :" />
+                        <Text layoutX="42.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Issue Date :" />
+                        <Text layoutX="42.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Receiving Facility :" />
+                        <Text layoutX="42.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Handover Ref :" />
+                        <TextField fx:id="g1IssueIdField" layoutX="169.0" layoutY="34.0" />
+                        <TextField fx:id="g1SeriesField" layoutX="168.0" layoutY="125.0" />
+                        <TextField fx:id="g1QuantityField" layoutX="168.0" layoutY="152.0" />
+                        <TextField fx:id="g1HandoverRefField" layoutX="168.0" layoutY="255.0" onAction="#handleG1PreviewLedger" />
+                        <ComboBox fx:id="g1AuthInstructionCombo" layoutX="169.0" layoutY="64.0" prefWidth="150.0" promptText="Select Authorized Issuance Order" />
+                        <DatePicker fx:id="g1IssueDatePicker" layoutX="168.0" layoutY="184.0" prefHeight="26.0" prefWidth="154.0" />
+                        <ComboBox fx:id="g1DenominationCombo" layoutX="169.0" layoutY="98.0" prefWidth="150.0" promptText="1000 / 500 / 200 / 100 / 50 / 20 / 10" />
+                        <ComboBox fx:id="g1ReceivingFacilityCombo" layoutX="168.0" layoutY="221.0" prefWidth="150.0" promptText="Motijheel Main Vault / Chittagong" />
+                        <TableView fx:id="g1DataTableView" layoutX="2.0" layoutY="292.0" prefHeight="200.0" prefWidth="774.0">
+                          <columns>
+                            <TableColumn fx:id="g1ColIssueId" prefWidth="105.60000610351562" text="Issue ID" />
+                            <TableColumn fx:id="g1ColDenomination" prefWidth="134.39999389648438" text="Denomination (BDT)" />
+                              <TableColumn fx:id="g1ColSeries" prefWidth="131.20001220703125" text="Series / Batch" />
+                              <TableColumn fx:id="g1ColQuantity" prefWidth="141.59991455078125" text="Quantity (Pieces)" />
+                              <TableColumn fx:id="g1ColIssueDate" prefWidth="131.2000732421875" text="Issue Date" />
+                              <TableColumn fx:id="g1ColStatus" prefWidth="131.99993896484375" text="Ledger Status" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="363.0" layoutY="36.0" mnemonicParsing="false" text="Preview Ledger Effect" />
+                        <Button layoutX="364.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleG1ConfirmIssue" text="Confirm &amp; Post Issue" />
+                        <Button layoutX="364.0" layoutY="98.0" mnemonicParsing="false" onAction="#handleG1ReconcileBalance" text="Reconcile Facility Balance" />
+                        <Button layoutX="363.0" layoutY="133.0" mnemonicParsing="false" onAction="#handleG1ViewAuditTrail" text="Audit Trail" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="user6Goal2Tab" text="2. Inventory">
+               <content>
+                  <AnchorPane fx:id="user6Goal2AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="44.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Facility Filter :" />
+                        <Text layoutX="41.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denomination Filter :" />
+                        <Text layoutX="42.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Physical Count :" />
+                        <Text layoutX="42.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adjust Qty :" />
+                        <Text layoutX="42.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adjust Reason :" />
+                        <TextField fx:id="g2AdjustQtyField" layoutX="168.0" layoutY="140.0" />
+                        <TextField fx:id="g2AdjustReasonField" layoutX="168.0" layoutY="177.0" />
+                        <ComboBox fx:id="g2DenominationFilterCombo" layoutX="169.0" layoutY="70.0" prefWidth="150.0" promptText="All Denominations" />
+                        <TableView fx:id="g2DataTableView" layoutX="2.0" layoutY="278.0" prefHeight="214.0" prefWidth="774.0">
+                           <columns>
+                              <TableColumn fx:id="g2ColFacilityId" prefWidth="93.60000610351562" text="Facility ID" />
+                              <TableColumn fx:id="g2ColDenomination" prefWidth="124.00003051757812" text="Denomination" />
+                              <TableColumn fx:id="g2ColOpeningBal" prefWidth="119.20001220703125" text="Opening Bal" />
+                              <TableColumn fx:id="g2ColIncoming" prefWidth="120.79998779296875" text="Incoming (+)" />
+                              <TableColumn fx:id="g2ColOutgoing" prefWidth="109.60003662109375" text="Outgoing (-)" />
+                              <TableColumn fx:id="g2ColInTransit" prefWidth="89.60003662109375" text="In-Transit" />
+                              <TableColumn fx:id="g2ColBalance" prefWidth="118.400146484375" text="Ledger Balance" />
+                           </columns>
+                        </TableView>
+                        <Button layoutX="363.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleG2CalculateBalances" text="Recalculate from Ledger" />
+                        <Button layoutX="364.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleG2ReconcileCount" text="Reconcile Physical Count" />
+                        <Button layoutX="364.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleG2SubmitAdjustment" text="Request Authorized Adjustment" />
+                        <Button layoutX="363.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleG2ViewAuditTrail" text="Audit Trail" />
+                        <ComboBox fx:id="g2FacilityFilterCombo" layoutX="169.0" layoutY="39.0" prefWidth="150.0" promptText="All Facilities / Motijheel / Bogura" />
+                        <TextField fx:id="g2PhysicalCountField" layoutX="169.0" layoutY="106.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="user6Goal3Tab" text="3. Withdrawal">
+               <content>
+                  <AnchorPane fx:id="user6Goal3AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="45.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Withdrawal Id :" />
+                        <Text layoutX="41.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Facility :" />
+                        <Text layoutX="42.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denomination :" />
+                        <Text layoutX="42.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Series :" />
+                        <Text layoutX="42.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity :" />
+                        <TextField fx:id="g3WithdrawalIdField" layoutX="169.0" layoutY="38.0" />
+                        <TextField fx:id="g3SeriesField" layoutX="168.0" layoutY="140.0" />
+                        <TextField fx:id="g3QuantityField" layoutX="168.0" layoutY="176.0" />
+                        <ComboBox fx:id="g3FacilityCombo" layoutX="169.0" layoutY="70.0" prefWidth="150.0" promptText="Select Cash Facility" />
+                        <ComboBox fx:id="g3DenominationCombo" layoutX="169.0" layoutY="103.0" prefWidth="150.0" promptText="Select Denomination" />
+                        <TableView fx:id="g3DataTableView" layoutX="2.0" layoutY="278.0" prefHeight="214.0" prefWidth="774.0">
+                           <columns>
+                              <TableColumn fx:id="g3ColWithdrawalId" prefWidth="93.60000610351562" text="Withdrawal ID" />
+                              <TableColumn fx:id="g3ColDenomination" prefWidth="145.5999755859375" text="Denomination" />
+                              <TableColumn fx:id="g3ColSeries" prefWidth="99.20001220703125" text="Series" />
+                              <TableColumn fx:id="g3ColQuantity" prefWidth="120.79998779296875" text="Withdrawn Qty" />
+                              <TableColumn fx:id="g3ColWithdrawalDate" prefWidth="175.20001220703125" text="Withdrawal Date" />
+                              <TableColumn fx:id="g3ColStatus" prefWidth="121.5999755859375" text="Status" />
+                           </columns>
+                        </TableView>
+                        <Button layoutX="363.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleG3PreviewDeduction" text="Preview Stock Deduction" />
+                        <Button layoutX="364.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleG3ConfirmWithdrawal" text="Confirm Withdrawal" />
+                        <Button layoutX="364.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleG3ReconcileBalance" text="Reconcile Facility Balance" />
+                        <Button layoutX="363.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleG3ViewAuditTrail" text="Audit Trail" />
+                        <Text layoutX="42.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Withdrawal Date :" />
+                        <Text layoutX="42.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason :" />
+                        <DatePicker fx:id="g3WithdrawalDatePicker" layoutX="168.0" layoutY="209.0" prefHeight="11.0" prefWidth="151.0" />
+                        <TextField fx:id="g3ReasonField" layoutX="169.0" layoutY="241.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="user6Goal4Tab" text="4. Damaged Notes">
+               <content>
+                  <AnchorPane fx:id="user6Goal4AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="43.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Submission Id :" />
+                        <Text layoutX="41.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Branch Id :" />
+                        <Text layoutX="42.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denomination :" />
+                        <Text layoutX="42.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity :" />
+                        <Text layoutX="42.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status :" />
+                        <TextField fx:id="g4SubmissionIdField" layoutX="169.0" layoutY="38.0" />
+                        <TextField fx:id="g4QuantityField" layoutX="168.0" layoutY="140.0" />
+                        <ComboBox fx:id="g4DenominationCombo" layoutX="169.0" layoutY="103.0" prefWidth="150.0" promptText="Select Denomination" />
+                        <TableView fx:id="g4DataTableView" layoutX="3.0" layoutY="279.0" prefHeight="214.0" prefWidth="774.0">
+                           <columns>
+                              <TableColumn fx:id="g4ColSubmissionId" prefWidth="104.0" text="Submission ID" />
+                              <TableColumn fx:id="g4ColBranchId" prefWidth="181.60003662109375" text="Branch / Submitter ID" />
+                              <TableColumn fx:id="g4ColDenomination" prefWidth="135.199951171875" text="Denomination" />
+                              <TableColumn fx:id="g4ColQuantity" prefWidth="161.5999755859375" text="Quantity" />
+                              <TableColumn fx:id="g4ColStatus" prefWidth="193.60003662109375" text="Assessment Status" />
+                           </columns>
+                        </TableView>
+                        <Button layoutX="363.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleG4CheckDuplicate" text="Check Duplicate Submission" />
+                        <Button layoutX="364.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleG4RegisterDamagedNotes" text="Register &amp; Route Assessment" />
+                        <Button layoutX="364.0" layoutY="106.0" mnemonicParsing="false" onAction="#handleG4ViewAuditTrail" text="Audit Trail" />
+                        <Text layoutX="42.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Custody Ref :" />
+                        <Text layoutX="42.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assessment Note :" />
+                        <TextField fx:id="g4AssessmentNoteField" layoutX="169.0" layoutY="241.0" />
+                        <TextField fx:id="g4BranchIdField" layoutX="169.0" layoutY="70.0" />
+                        <ComboBox fx:id="g4StatusCombo" layoutX="167.0" layoutY="175.0" prefWidth="150.0" promptText="Under Assessment / Verified Unfit / Returned" />
+                        <TextField fx:id="g4CustodyRefField" layoutX="167.0" layoutY="205.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="user6Goal5Tab" text="5. Destruction">
+               <content>
+                  <AnchorPane fx:id="user6Goal5AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="43.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Record Id :" />
+                        <Text layoutX="41.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Batch Id :" />
+                        <Text layoutX="42.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destroyed Qty :" />
+                        <Text layoutX="42.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destruction Date :" />
+                        <Text layoutX="42.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destruction Cert Ref :" />
+                        <TextField fx:id="g5RecordIdField" layoutX="169.0" layoutY="38.0" />
+                        <TextField fx:id="g5DestructionCertRefField" layoutX="167.0" layoutY="174.0" />
+                        <TableView fx:id="g5DataTableView" layoutX="2.0" layoutY="278.0" prefHeight="214.0" prefWidth="774.0">
+                           <columns>
+                              <TableColumn fx:id="g5ColRecordId" prefWidth="104.0" text="Record ID" />
+                              <TableColumn fx:id="g5ColBatchId" prefWidth="140.79998779296875" text="Unfit Batch ID" />
+                              <TableColumn fx:id="g5ColDenomination" prefWidth="131.20001220703125" text="Denomination" />
+                              <TableColumn fx:id="g5ColApprovedQty" prefWidth="143.20001220703125" text="Approved Qty" />
+                              <TableColumn fx:id="g5ColDestructionDate" prefWidth="124.0" text="Destruction Date" />
+                              <TableColumn fx:id="g5ColStatus" prefWidth="116.800048828125" text="Status" />
+                           </columns>
+                        </TableView>
+                        <Button layoutX="363.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleG5PreviewLedger" text="Preview Ledger Reduction" />
+                        <Button layoutX="364.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleG5ConfirmDestruction" text="Confirm Destruction &amp; Post" />
+                        <Button layoutX="364.0" layoutY="106.0" mnemonicParsing="false" onAction="#handleG5ReconcileBalance" text="Reconcile Facility Balance" />
+                        <Text layoutX="42.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status :" />
+                        <TextField fx:id="g5BatchIdField" layoutX="169.0" layoutY="70.0" />
+                        <ComboBox fx:id="g5StatusCombo" layoutX="167.0" layoutY="205.0" prefWidth="150.0" promptText="Authorized / Destroyed / Reconciled" />
+                        <DatePicker fx:id="g5DestructionDatePicker" layoutX="169.0" layoutY="143.0" prefHeight="26.0" prefWidth="150.0" />
+                        <TextField fx:id="g5DestroyedQtyField" layoutX="167.0" layoutY="107.0" />
+                        <Button layoutX="364.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleG5ViewAuditTrail" text="Audit Trail" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="user6Goal6Tab" text="6. Stock Monitor">
+               <content>
+                  <AnchorPane fx:id="user6Goal6AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="43.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Facility Select :" />
+                        <Text layoutX="41.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denomination Filter :" />
+                        <Text layoutX="42.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Replenishment Qty :" />
+                        <Text layoutX="42.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alert Note :" />
+                        <TableView fx:id="g6DataTableView" layoutX="2.0" layoutY="278.0" prefHeight="214.0" prefWidth="774.0">
+                           <columns>
+                              <TableColumn fx:id="g6ColFacilityId" prefWidth="99.19998168945312" text="Facility ID" />
+                              <TableColumn fx:id="g6ColFacilityName" prefWidth="119.20001220703125" text="Facility Name" />
+                              <TableColumn fx:id="g6ColDenomination" prefWidth="117.5999755859375" text="Denomination" />
+                              <TableColumn fx:id="g6ColCurrentBalance" prefWidth="143.20001220703125" text="Current Balance" />
+                              <TableColumn fx:id="g6ColStockThreshold" prefWidth="146.4000244140625" text="Min Threshold" />
+                              <TableColumn fx:id="g6ColLowStockAlert" prefWidth="148.0" text="Threshold Status" />
+                           </columns>
+                        </TableView>
+                        <Button layoutX="363.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleG6CheckThresholds" text="Evaluate Thresholds (isLowStock)" />
+                        <Button layoutX="364.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleG6SubmitReplenishmentRequest" text="Submit Replenishment Alert to ED" />
+                        <Button layoutX="364.0" layoutY="106.0" mnemonicParsing="false" onAction="#handleG6TrackAlertStatus" text="Track Alert Resolution" />
+                        <Button layoutX="364.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleG6ViewAuditTrail" text="Audit Trail" />
+                        <ComboBox fx:id="g6DenominationFilterCombo" layoutX="169.0" layoutY="70.0" prefWidth="150.0" promptText="Select Period (Monthly / Quarterly)" />
+                        <ComboBox fx:id="g6FacilitySelectCombo" layoutX="169.0" layoutY="38.0" prefWidth="150.0" promptText="Select Period (Monthly / Quarterly)" />
+                        <TextField fx:id="g6ReplenishmentQtyField" layoutX="170.0" layoutY="115.0" />
+                        <TextField fx:id="g6AlertNoteField" layoutX="170.0" layoutY="151.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="user6Goal7Tab" text="7. Transfers">
+               <content>
+                  <AnchorPane fx:id="user6Goal7AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="44.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transfer Id :" />
+                        <Text layoutX="41.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transfer Date :" />
+                        <Text layoutX="42.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sending Facility :" />
+                        <Text layoutX="42.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Receiving Facility :" />
+                        <Text layoutX="42.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denomination :" />
+                        <Text layoutX="42.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity :" />
+                        <Text layoutX="42.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Received Qty :" />
+                        <Text layoutX="42.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status :" />
+                        <TextField fx:id="g7TransferIdField" layoutX="169.0" layoutY="34.0" />
+                        <ComboBox fx:id="g7SendingFacilityCombo" layoutX="169.0" layoutY="98.0" prefWidth="150.0" promptText="Origin Vault Facility" />
+                        <TableView fx:id="g7DataTableView" layoutX="2.0" layoutY="292.0" prefHeight="200.0" prefWidth="774.0">
+                           <columns>
+                              <TableColumn fx:id="g7ColTransferId" prefWidth="105.60000610351562" text="Transfer ID" />
+                              <TableColumn fx:id="g7ColRoute" prefWidth="141.5999755859375" text="Sending -&gt; Receiving" />
+                              <TableColumn fx:id="g7ColDenomination" prefWidth="146.4000244140625" text="Denomination" />
+                              <TableColumn fx:id="g7ColQuantity" prefWidth="120.79998779296875" text="Quantity" />
+                              <TableColumn fx:id="g7ColTransferDate" prefWidth="131.2000732421875" text="Transfer DateTime" />
+                              <TableColumn fx:id="g7ColStatus" prefWidth="131.99993896484375" text="Lifecycle Status" />
+                           </columns>
+                        </TableView>
+                        <Button layoutX="363.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleG7ConfirmDispatch" text="Confirm Dispatch (In Transit)" />
+                        <Button layoutX="364.0" layoutY="67.0" mnemonicParsing="false" onAction="#handleG7RecordReceipt" text="Record Receipt &amp; Reconcile" />
+                        <Button layoutX="364.0" layoutY="99.0" mnemonicParsing="false" onAction="#handleG7ViewAuditTrail" text="Audit Trail" />
+                        <ComboBox fx:id="g7ReceivingFacilityCombo" layoutX="170.0" layoutY="128.0" prefWidth="150.0" promptText="Destination Vault Facility" />
+                        <ComboBox fx:id="g7DenominationCombo" layoutX="170.0" layoutY="158.0" prefWidth="150.0" promptText="Select Denomination" />
+                        <TextField fx:id="g7TransferDateField" layoutX="169.0" layoutY="65.0" />
+                        <TextField fx:id="g7QuantityField" layoutX="170.0" layoutY="192.0" />
+                        <TextField fx:id="g7ReceivedQtyField" layoutX="170.0" layoutY="221.0" />
+                        <ComboBox fx:id="g7StatusCombo" layoutX="170.0" layoutY="254.0" prefWidth="150.0" promptText="Authorized / Dispatched / In Transit / Received" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="user6Goal8Tab" text="8. Circulation Reports">
+               <content>
+                  <AnchorPane fx:id="user6Goal8AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="43.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Report Id :" />
+                        <Text layoutX="41.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Period :" />
+                        <Text layoutX="42.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denomination Filter :" />
+                        <Text layoutX="42.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Facility Filter : " />
+                        <TableView fx:id="g8DataTableView" layoutX="2.0" layoutY="278.0" prefHeight="214.0" prefWidth="774.0">
+                           <columns>
+                              <TableColumn fx:id="g8ColDenomination" prefWidth="104.0" text="Denomination" />
+                              <TableColumn fx:id="g8ColOpeningBal" prefWidth="111.20001220703125" text="Opening Bal" />
+                              <TableColumn fx:id="g8ColIssued" prefWidth="119.20001220703125" text="Issues (+)" />
+                              <TableColumn fx:id="g8ColWithdrawn" prefWidth="128.0" text="Withdrawals (-)" />
+                              <TableColumn fx:id="g8ColDestroyed" prefWidth="112.79998779296875" text="Destroyed (-)" />
+                              <TableColumn fx:id="g8ColTransfers" prefWidth="103.2000732421875" text="Net Transfers" />
+                              <TableColumn fx:id="g8ColClosingBal" prefWidth="107.199951171875" text="Closing Bal" />
+                           </columns>
+                        </TableView>
+                        <Button layoutX="363.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleG8GenerateReport" text="Evaluate Thresholds (isLowStock)" />
+                        <Button layoutX="364.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleG8ReconcileTotals" text="Verify Ledger Reconciliation" />
+                        <Button layoutX="364.0" layoutY="106.0" mnemonicParsing="false" onAction="#handleG8SubmitToED" text="Finalize &amp; Submit to ED (User 3)" />
+                        <Button layoutX="364.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleG8ViewAuditTrail" text="Audit Trail" />
+                        <ComboBox fx:id="g8PeriodCombo" layoutX="169.0" layoutY="70.0" prefWidth="150.0" promptText="Select Period (Monthly / Quarterly)" />
+                        <ComboBox fx:id="g8DenominationFilterCombo" layoutX="169.0" layoutY="106.0" prefWidth="150.0" promptText="All Denominations" />
+                        <ComboBox fx:id="g8FacilityFilterCombo" layoutX="169.0" layoutY="143.0" prefWidth="150.0" promptText="All Cash Facilities" />
+                        <TextField fx:id="g8ReportIdField" layoutX="170.0" layoutY="39.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button layoutX="686.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleSignOutButton" text="Sign Out" />
+   </children>
 </AnchorPane>
